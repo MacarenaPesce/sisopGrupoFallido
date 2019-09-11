@@ -9,3 +9,7 @@ TP 2do Cuatrimestre 2019 de Sistemas Operativos en UTN FRBA
 * Micolucci, Leandro (1644762)
 * Peduto, Francisco  (1642108)
 * Pesce, Macarena Agostina  (1637824)
+
+## Ayudantes ##
+
+Damian Facchini y Gaston Castineira
