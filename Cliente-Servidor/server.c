@@ -56,3 +56,6 @@ int readQueryFromClient(int client, char *package) {
 void closeServer(int server) {
 	close(server);
 }
+
+
+
