@@ -15,7 +15,7 @@ void castear (int numero, char *digitos) {
 	digitos [0] = numero % 10 + 48;
 }
 
-void main () {
+void main2 () {
 	char *tamaniomensajecasteado = malloc (2);
 	char *caracter = malloc (1);
 	char *mensaje = malloc (1);

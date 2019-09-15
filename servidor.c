@@ -1,3 +1,4 @@
+#include <hilolay/hilolay.h>
 #include <readline/readline.h>
 #include <commons/string.h>
 #include <commons/config.h>
@@ -10,6 +11,11 @@
 #include <stdio.h>
 
 void main () {
+	//Usando Hilolay
+	int tiempo = lib_get_time();
+	printf("El tiempo es %i\n", tiempo);
+
+
 	struct sockaddr_in direccioncliente;
 	char *mensaje = malloc (1);
 	int tamaniomensaje;

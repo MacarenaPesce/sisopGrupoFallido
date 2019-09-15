@@ -3,6 +3,7 @@
 	<name>Noches de Pasión de C</name>
 	<comment></comment>
 	<projects>
+		<project>Hilolay</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
