@@ -8,7 +8,6 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include Cliente-Servidor/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -23,22 +22,22 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Pasiones
+all: SUSE
 
 dependents:
 	-cd /home/utnso/workspace/Hilolay/Debug && $(MAKE) all
 
 # Tool invocations
-Pasiones: $(OBJS) $(USER_OBJS) /home/utnso/workspace/Hilolay/Debug/libHilolay.so
+SUSE: $(OBJS) $(USER_OBJS) /home/utnso/workspace/Hilolay/Debug/libHilolay.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/workspace/Hilolay/Debug" -o "Pasiones" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/workspace/Hilolay/Debug" -o "SUSE" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) Pasiones
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) SUSE
 	-@echo ' '
 
 .PHONY: all clean dependents
