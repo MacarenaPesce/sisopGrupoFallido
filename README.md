@@ -13,3 +13,11 @@ TP 2do Cuatrimestre 2019 de Sistemas Operativos en UTN FRBA
 ## Ayudantes ##
 
 Damian Facchini y Gaston Castineira
+
+## Links utiles ##
+
+Enunciado TP [Linuse]
+
+[Linuse]: https://docs.google.com/document/d/1Spusiptdu1QeKhqGuN_1fqdpbyWV5gYmt72wedYtl3E/edit
+
+
