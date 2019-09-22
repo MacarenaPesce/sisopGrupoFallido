@@ -8,7 +8,8 @@
     #include <unistd.h>
     #include <errno.h>
     #include <string.h>
-    
+	#include <readline/readline.h>
+
     #include <sys/types.h>
     #include <sys/socket.h>
     #include <netinet/in.h>
@@ -16,13 +17,26 @@
     #include <sys/wait.h>
     #include <signal.h>
 
-    #define MYPORT 3490    // Puerto al que conectarán los usuarios
+    #define MYPORT 3491    // Puerto al que conectarán los usuarios
 
     #define BACKLOG 10     // Cuántas conexiones pendientes se mantienen en cola
 
     void sigchld_handler(int s)
     {
         while(wait(NULL) > 0);
+    }
+
+    void control_error_conexion(int bytes_leidos, struct sockaddr_in cliente, int fd_cliente) {
+
+    	if(bytes_leidos == 0) {
+    		printf("Se desconecto el cliente %s\n de %i\n", inet_ntoa(cliente.sin_addr), fd_cliente);
+    		exit(1);
+    	}
+    	if(bytes_leidos < 0) {
+    		perror("recv");
+    		exit(-1);
+    	}
+
     }
 
     int main(void)
@@ -75,12 +89,32 @@
                 perror("accept");
                 continue;
             }
-            printf("server: got connection from %s\n",
-                                               inet_ntoa(their_addr.sin_addr));
+            printf("\nserver: got connection from %s in %i\n", inet_ntoa(their_addr.sin_addr), new_fd);
             if (!fork()) { // Este es el proceso hijo
+
                 close(sockfd); // El hijo no necesita este descriptor
-                if (send(new_fd, "Hello, world!\n", 14, 0) == -1)
+                char* mensajeCliente;
+            	int tamanio;
+            	int nbytesTAM;
+            	int nbytesMSJ;
+            	char tamanioMSJ[1];
+
+            	char miSaludo[] = "\nTe conectaste con marichann. Bienvenido\n ~~~~ * ~~~~\n";
+                if (send(new_fd, miSaludo, strlen(miSaludo), 0) == -1)
                     perror("send");
+
+                while(1) {
+
+                	nbytesTAM = recv(new_fd, tamanioMSJ,1, 0);
+                	control_error_conexion(nbytesTAM, their_addr, new_fd);
+                	tamanio = tamanioMSJ[0];
+                	mensajeCliente = malloc(tamanio + 1);
+                	nbytesMSJ = recv(new_fd, mensajeCliente,tamanio, 0);
+                	control_error_conexion(nbytesMSJ, their_addr, new_fd);
+                	mensajeCliente[tamanio] = '\0';
+                	printf("\n%s dice >>> %s \n", inet_ntoa(their_addr.sin_addr), mensajeCliente);
+                }
+
                 close(new_fd);
                 exit(0);
             }
@@ -88,4 +122,5 @@
         }
 
         return 0;
+
     } 
