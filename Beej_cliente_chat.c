@@ -78,7 +78,7 @@ int main() {
 	
 	pthread_t hilo_escuchar;
 
-	//pthread_create(&hilo_escuchar, NULL, escuchar_server, &server);
+	pthread_create(&hilo_escuchar, NULL, escuchar_server, &server);
 
 	while(1) {
 		linea = readline("<<< ");
@@ -87,7 +87,7 @@ int main() {
 		free(linea);
 	}
 
-	//pthread_join(hilo_escuchar, NULL);
+	pthread_join(hilo_escuchar, NULL);
 
 
 	return 0;
