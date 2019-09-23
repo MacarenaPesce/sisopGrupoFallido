@@ -1,6 +1,6 @@
 
     /*
-    ** server.c -- Ejemplo de servidor de sockets de flujo
+    ** server.c -- Ejemplo de servidor de sockets de flujo ~~
     */
 
     #include <stdio.h>
