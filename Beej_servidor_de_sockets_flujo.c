@@ -1,6 +1,8 @@
 
-    /*
-    ** server.c -- Ejemplo de servidor de sockets de flujo ~~
+	/*
+	*
+    *  * Servidor multihijos (el que usaría Mari y Noe AK FileSystem)
+    * 
     */
 
     #include <stdio.h>
@@ -8,8 +10,6 @@
     #include <unistd.h>
     #include <errno.h>
     #include <string.h>
-	#include <readline/readline.h>
-
     #include <sys/types.h>
     #include <sys/socket.h>
     #include <netinet/in.h>
@@ -60,7 +60,7 @@
         
         my_addr.sin_family = AF_INET;         // Ordenación de bytes de la máquina
         my_addr.sin_port = htons(MYPORT);     // short, Ordenación de bytes de la red
-        my_addr.sin_addr.s_addr = INADDR_ANY; // Rellenar con mi dirección IP
+        my_addr.sin_addr.s_addr = inet_addr("192.168.43.135");//INADDR_ANY; // Rellenar con mi dirección IP
         memset(&(my_addr.sin_zero), '\0', 8); // Poner a cero el resto de la estructura
 
         if (bind(sockfd, (struct sockaddr *)&my_addr, sizeof(struct sockaddr))
@@ -81,6 +81,11 @@
             perror("sigaction");
             exit(1);
         }
+
+		printf("Estoy escuchando, invita a tus amigos al server %s on "
+                                "socket %d\n", inet_ntoa(my_addr.sin_addr), MYPORT);
+			
+
 
         while(1) {  // main accept() loop
             sin_size = sizeof(struct sockaddr_in);
