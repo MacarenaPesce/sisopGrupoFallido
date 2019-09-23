@@ -16,8 +16,8 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#define BACKLOG SOMAXCONN
-#define PACKAGESIZE 1024
+#define BACKLOG SOMAXCONN  // Define cuantas conexiones vamos a mantener pendientes al mismo tiempo
+#define PACKAGESIZE 1024   // Define cual va a ser el size maximo del paquete a enviar
 
 int createServer(char*, char*);
 int connectToClient(int);
