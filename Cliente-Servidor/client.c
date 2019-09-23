@@ -1,17 +1,9 @@
 #include"client.h"
 
-int connectToServer(char *IP, char *PORT) {
-	struct addrinfo hints;
-	struct addrinfo *server_info;
+#define IP "127.0.0.1"
+#define PUERTO "6667"
 
-	memset(&hints, 0, sizeof(hints)); 
-	hints.ai_family = AF_UNSPEC;
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_PASSIVE;
-
-	getaddrinfo(IP, PORT, &hints, &server_info);
-
-	int client_socket = socket(server_info->ai_family, server_info->ai_socktype, server_info->ai_protocol);
+int connectToServer(char *IP, char *PORT, int client_socket) {
 
 	if(connect(client_socket, server_info->ai_addr, server_info->ai_addrlen) == -1){
 //		printf("Error al conectarse al servidor. Try again later.\n");
@@ -19,7 +11,7 @@ int connectToServer(char *IP, char *PORT) {
 		close(client_socket);
 		return -1;
 	}
-	freeaddrinfo(server_info);
+	freeaddrinfo(server_info); // No lo necesitamos mas
 
 	return client_socket;
 }
@@ -36,9 +28,10 @@ void sendMessages(int serverSocket) {
 
 	while(enviar){
 		printf(">");
-		fgets(message, PACKAGESIZE, stdin);
-		send(serverSocket, message, strlen(message) + 1, 0);
-		if(strcasecmp("exit\n", message) == 0) enviar = 0;
+		fgets(message, PACKAGESIZE, stdin); // Lee una linea en el stdin (lo que escribimos en la consola) hasta encontrar un \n (y lo incluye) o llegar a PACKAGESIZE.
+		if(strcasecmp("exit\n", message) == 0) enviar = 0;  // Chequeo que el usuario no quiera salir
+		if (enviar) send(serverSocket, message, strlen(message) + 1, 0);  // Solo envio si el usuario no quiere salir.
+		
 	}
 }
 
@@ -47,22 +40,37 @@ void closeConnection(int serverSocket) {
 }
 
 
-// buscar donde esta struct addrinfo -> en los include -> https://linux.die.net/man/3/freeaddrinfo
-//struct addrinfo {
-//    int ai_flags;
-//    int ai_family;
-//    int ai_socktype;
-//    int ai_protocol;
-//    socklen_t ai_addrlen;
-//    struct sockaddr * ai_addr;
-//    char * ai_canonname;
-//    struct addrinfo * ai_next;
-//};
-//memset Establece el primer num bytes del bloque de memoria apuntado por ptr a la especificada valor (interpretado como un unsigned char ).
-//Las funciones getaddrinfo () y getnameinfo () convierten nombres de dominio , nombres de host y direcciones IP entre representaciones de texto legibles por humanos y formatos binarios estructurados para la API de red del sistema operativo . Ambas funciones están contenidas en la interfaz de programación de aplicaciones (API) estándar POSIX .
-// getaddrinfo, freeaddrinfo, gai_strerror - dirección de red y traducción de servicios
-// https://linux.die.net/man/3/freeaddrinfo
 
 
 
+
+int main(){
+	
+	struct addrinfo hints;
+	struct addrinfo *server_info;
+
+	memset(&hints, 0, sizeof(hints)); 
+	hints.ai_family = AF_UNSPEC;       // Permite que la maquina se encargue de verificar si usamos IPv4 o IPv6
+	hints.ai_socktype = SOCK_STREAM;   // Indica que usaremos el protocolo TCP
+	hints.ai_flags = AI_PASSIVE;
+
+	getaddrinfo(IP, PORT, &hints, &server_info);     // Carga en serverInfo los datos de la conexion
+
+
+	//Obtiene un socket (un file descriptor -todo en linux es un archivo-), utilizando la estructura serverInfo que generamos antes.
+	int client_socket = socket(server_info->ai_family, server_info->ai_socktype, server_info->ai_protocol);
+
+	//Me conecto	
+	connectToServer(IP,PORT, client_socket);
+
+	//creamos el paquete y enviamos mensajes
+	sendMessages(client_socket);
+
+	// cierro conexion 
+	closeConnection(client_socket);
+
+	return 0;
+
+	
+}
 
