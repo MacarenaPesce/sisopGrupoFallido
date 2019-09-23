@@ -42,9 +42,10 @@ void sendMessages(int serverSocket) {
 	while(enviar){
 		printf(">");
 		fgets(message, PACKAGESIZE, stdin); // Lee una linea en el stdin (lo que escribimos en la consola) hasta encontrar un \n (y lo incluye) o llegar a PACKAGESIZE.
-		sprintf (message, "%c%s", strlen(message), message);
+		char *mensaje = malloc (strlen (message));
+		sprintf (mensaje, "%c%s", strlen(message), message);
 		if(strcasecmp("exit\n", message) == 0) enviar = 0;  // Chequeo que el usuario no quiera salir
-		if (enviar) send(serverSocket, message, strlen(message) + 1, 0);  // Solo envio si el usuario no quiere salir.
+		if (enviar) send(serverSocket, mensaje, strlen(message) + 1, 0);  // Solo envio si el usuario no quiere salir.
 		
 	}
 }
