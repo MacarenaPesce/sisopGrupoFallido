@@ -4,17 +4,10 @@
 #include <commons/log.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <pthread.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-
-void castear (int numero, char *digitos) {
-	digitos [1] = numero - numero % 10 * 10 + 48;
-
-	digitos [0] = numero % 10 + 48;
-}
 
 int escuchar () {
 	struct sockaddr_in direccioncliente;
@@ -82,7 +75,7 @@ int escuchar () {
 				}
 
 				else {
-					mensaje = realloc (mensaje, 2);
+					mensaje = realloc (mensaje, 1);
 
 					if (recv (i, mensaje, 1, 0) <= 0) {
 						printf ("El cliente %i se desconectó.\n", i);
@@ -95,7 +88,7 @@ int escuchar () {
 					else {
 						tamaniomensaje = *mensaje;
 
-						mensaje = realloc (mensaje, tamaniomensaje);
+						mensaje = realloc (mensaje, tamaniomensaje + 1);
 
 						mensaje [tamaniomensaje] = '\0';
 
@@ -108,16 +101,21 @@ int escuchar () {
 						}
 
 						else {
+							printf ("%s\n", mensaje);
+
+							char *aux = strdup (mensaje);
+
+							sprintf (mensaje, "%c%s", strlen (aux), aux);
+
+							free (aux);
+
+							mensaje [tamaniomensaje + 1] = '\0';
+
 							for (int j = 0; j <= maximofd; j++) {
 								if (FD_ISSET (j, &general)) {
-									if (j != servidor && j != i) {
-										if (send (j, mensaje, tamaniomensaje, 0) == -1)
+									if (j != servidor) {
+										if (send (j, mensaje, tamaniomensaje + 1, 0) == -1)
 											perror ("Error al enviar un mensaje.\n");
-									}
-
-									else {
-										if (j == servidor)
-											printf ("%s\n", mensaje);
 									}
 								}
 							}
@@ -135,35 +133,11 @@ int escuchar () {
 	return 0;
 }
 
-void *recivir (void *servidor) {
-	int *servidorcasteado = (int *) servidor;
-	char *tamaniomensaje = malloc (2);
-	char *mensaje;
-	int tamanio;
-
-	while (recv (*servidorcasteado, tamaniomensaje, 2, 0)) {
-		tamanio = atoi (tamaniomensaje);
-
-		mensaje = malloc (tamanio);
-
-		recv (*servidorcasteado, mensaje, tamanio, 0);
-
-		mensaje [tamanio] = '\0';
-
-		printf ("\n%s\n", mensaje);
-
-		free (mensaje);
-	}
-
-	return 0;
-}
-
 int hablar () {
-	char *tamaniomensajecasteado = malloc (2);
+	char *tamaniomensajecasteado = malloc (1);
 	char *caracter = malloc (1);
 	char *mensaje = malloc (1);
 	int tamaniomensaje = 0;
-	pthread_t hilo;
 
 	struct sockaddr_in direccionservidor;
 	direccionservidor.sin_family = AF_INET;
@@ -180,8 +154,6 @@ int hablar () {
 		return 1;
 	}
 
-	pthread_create (&hilo, NULL, &recivir, &servidor);
-
 	printf ("Estoy aquí.\nMensaje para el servidor: ");
 
 	*caracter = getchar ();
@@ -197,15 +169,27 @@ int hablar () {
 			*caracter = getchar ();
 		}
 
-		castear (tamaniomensaje, tamaniomensajecasteado);
+		mensaje [tamaniomensaje] = '\0';
 
-		send (cliente, tamaniomensajecasteado, 2, 0);
+		char *aux = strdup (mensaje);
 
-		printf ("Enviar.");
+		sprintf (mensaje, "%c%s", strlen (aux), aux);
 
-		scanf ("%c", caracter);
+		free (aux);
 
-		send (cliente, mensaje, tamaniomensaje, 0);
+		send (cliente, mensaje, tamaniomensaje + 1, 0);
+
+		tamaniomensaje = 0;
+
+		recv (cliente, mensaje, 1, 0);
+
+		tamaniomensaje = *mensaje;
+
+		recv (cliente, mensaje, tamaniomensaje + 1, 0);
+
+		mensaje [tamaniomensaje] = '\0';
+
+		printf ("%s\n", mensaje);
 
 		tamaniomensaje = 0;
 
@@ -218,19 +202,15 @@ int hablar () {
 
 	tamaniomensaje = 20;
 
-	castear (tamaniomensaje, tamaniomensajecasteado);
+	sprintf (mensaje, "%c%s", 20, "Adiós servidor ;).\n");
 
-	send (cliente, tamaniomensajecasteado, 1, 0);
+	mensaje [20] = '\0';
 
-	printf ("Terminar.");
+	send (cliente, mensaje, 20, 0);
 
-	scanf ("%c", caracter);
-
-	send (cliente, "Adiós servidor ;).\n", 20, 0);
+	free (mensaje);
 
 	close (cliente);
-
-	pthread_join (hilo, NULL);
 
 	return 0;
 }

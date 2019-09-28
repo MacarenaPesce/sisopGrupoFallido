@@ -3,6 +3,35 @@
 #define IP "127.0.0.1"
 #define PUERTO "1024"
 
+void *recivir (void *servidor) {
+	int *servidorcasteado = (int *) servidor;
+	char *tamaniomensaje = malloc (2);
+	char *mensaje;
+	int tamanio;
+
+	while (1) {
+		pthread_mutex_lock (&mutex_escuchar);
+
+		recv (*servidorcasteado, tamaniomensaje, 2, 0);
+
+		tamanio = atoi (tamaniomensaje);
+
+		mensaje = malloc (tamanio);
+
+		printf ("%i", recv (*servidorcasteado, mensaje, tamanio, 0));
+
+		mensaje [tamanio] = '\0';
+
+		printf ("\n%s\n", mensaje);
+
+		free (mensaje);
+
+		pthread_mutex_unlock (&mutex_hablar);
+	}
+
+	return 0;
+}
+
 int connectToServer(char *ip, char *PORT) {
 
 	struct addrinfo hints;
