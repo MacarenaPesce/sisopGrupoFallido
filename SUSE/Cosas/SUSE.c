@@ -1,7 +1,7 @@
 #include "SUSE.h"
 
 void _suse_init () {
-	t_config *config = config_create ("Config.config");
+	t_config *config = config_create ("Cosas/Config.config");
 	int *vals = malloc (4 * sizeof (config_get_array_value (config, "Vals")));
 	int *maxs = malloc (4 * sizeof (config_get_array_value (config, "Maxs")));
 	char *ids = malloc (sizeof (config_get_array_value (config, "Ids")));
