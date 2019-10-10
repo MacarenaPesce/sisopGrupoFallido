@@ -8,6 +8,13 @@
 
 struct semaforo *repo = NULL;
 
+struct TCB *ready = NULL;
+
+struct TCB {
+	struct TCB *siguiente;
+	int idmaquina;
+};
+
 struct semaforo {
 	struct semaforo *sig;
 	char id;

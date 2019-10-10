@@ -2,17 +2,15 @@
 
 void _suse_init () {
 	t_config *config = config_create ("Cosas/Config.config");
-	int *vals = malloc (4 * sizeof (config_get_array_value (config, "Vals")));
-	int *maxs = malloc (4 * sizeof (config_get_array_value (config, "Maxs")));
-	char *ids = malloc (sizeof (config_get_array_value (config, "Ids")));
+	//int vals [] = malloc (4 * sizeof (config_get_array_value (config, "Vals")) - 4);
+	//int maxs [] = malloc (4 * sizeof (config_get_array_value (config, "Maxs")) - 4);
+	//char ids [] = malloc (sizeof (config_get_array_value (config, "Ids")) - 1);
 
-	printf ("%i\n", sizeof (config_get_array_value (config, "Vals")));
+	int *vals = config_get_array_value (config, "Vals");
 
-	*vals = config_get_array_value (config, "Vals");
+	int *maxs = config_get_array_value (config, "Maxs");
 
-	*maxs = config_get_array_value (config, "Maxs");
-
-	*ids = config_get_array_value (config, "Ids");
+	char *ids = config_get_array_value (config, "Ids");
 
 	for (int i = 0; i < sizeof (config_get_array_value (config, "Vals")); i++) {
 		struct semaforo *sem = malloc (sizeof (struct semaforo));
@@ -29,12 +27,6 @@ void _suse_init () {
 		printf ("%i, %i\n", sem -> val, vals [i]);
 
 		repo = sem;
-	}
-
-	for (int i = 0; i < 3; i++) {
-		printf ("%c, %i, %i\n", repo -> id, repo -> val, repo -> max);
-
-		repo = repo -> sig;
 	}
 }
 
