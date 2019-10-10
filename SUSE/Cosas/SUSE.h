@@ -1,5 +1,7 @@
+#include "hilolay/hilolay_internal.h"
 #include "hilolay/hilolay.h"
 #include <commons/config.h>
+#include <commons/collections/list.h>
 #include <commons/log.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -12,13 +14,6 @@
 #define SUSE_H_
 
 struct semaforo *repo = NULL;
-
-struct TCB *ready = NULL;
-
-struct TCB {
-	struct TCB *siguiente;
-	int idmaquina;
-};
 
 struct semaforo {
 	struct semaforo *sig;

@@ -6,27 +6,50 @@ void _suse_init () {
 	//int maxs [] = malloc (4 * sizeof (config_get_array_value (config, "Maxs")) - 4);
 	//char ids [] = malloc (sizeof (config_get_array_value (config, "Ids")) - 1);
 
-	int *vals = config_get_array_value (config, "Vals");
+	char ***vals = config_get_array_value (config, "Vals");
 
-	int *maxs = config_get_array_value (config, "Maxs");
+	char ***maxs = config_get_array_value (config, "Maxs");
 
-	char *ids = config_get_array_value (config, "Ids");
+	char ***ids = config_get_array_value (config, "Ids");
 
-	for (int i = 0; i < sizeof (config_get_array_value (config, "Vals")); i++) {
+	int val;
+
+	int max;
+
+	for (int i = 0; i < sizeof (config_get_array_value (config, "Vals")) - 1; i++) {
 		struct semaforo *sem = malloc (sizeof (struct semaforo));
 
 		sem -> sig = repo;
 
-		sem -> id = (*ids + i);
+		sem -> id = ids [i];
 		printf ("%c, %c\n", sem -> id, ids [i]);
 
-		sem -> max = (*maxs + i * 4);
-		printf ("%i, %i\n", sem -> max, maxs [i]);
+		max = atoi (maxs [i]);
 
-		sem -> val = (*vals + i * 4);
-		printf ("%i, %i\n", sem -> val, vals [i]);
+		sem -> max = max;
+		printf ("%i, %i\n", sem -> max, max);
+
+		val = atoi (vals [i]);
+
+		sem -> val = val;
+		printf ("%i, %i\n", sem -> val, val);
 
 		repo = sem;
+	}
+	struct semaforo *sem2 = malloc (sizeof (struct semaforo));
+	*sem2= *repo;
+	printf("%c",sem2->id);
+}
+
+void crear (int cliente) {
+
+}
+
+void atender (int cliente, char *request) {
+	int codigo = *request;
+
+	switch (codigo) {
+		case 1: crear (cliente);
 	}
 }
 
@@ -122,24 +145,9 @@ void despertar () {
 						}
 
 						else {
-							printf ("%s\n", mensaje);
-
-							char *aux = strdup (mensaje);
-
-							sprintf (mensaje, "%c%s", strlen (aux), aux);
-
-							free (aux);
-
 							mensaje [tamaniomensaje + 1] = '\0';
 
-							for (int j = 0; j <= maximofd; j++) {
-								if (FD_ISSET (j, &general)) {
-									if (j != servidor) {
-										if (send (j, mensaje, tamaniomensaje + 1, 0) == -1)
-											perror ("Error al enviar un mensaje.\n");
-									}
-								}
-							}
+							atender (i, mensaje);
 						}
 					}
 				}
