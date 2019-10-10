@@ -1,5 +1,10 @@
 #include "hilolay/hilolay.h"
 #include <commons/config.h>
+#include <commons/log.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 
