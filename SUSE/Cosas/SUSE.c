@@ -30,6 +30,12 @@ void _suse_init () {
 	}
 }
 
+void despertar () {
+
+}
+
 void main () {
 	_suse_init ();
+
+	despertar ();
 }
