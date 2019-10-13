@@ -3,6 +3,7 @@
 	<name>SUSE</name>
 	<comment></comment>
 	<projects>
+		<project>Hilolay</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

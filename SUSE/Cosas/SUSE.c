@@ -2,15 +2,11 @@
 
 void _suse_init () {
 	t_config *config = config_create ("Cosas/Config.config");
-	//int vals [] = malloc (4 * sizeof (config_get_array_value (config, "Vals")) - 4);
-	//int maxs [] = malloc (4 * sizeof (config_get_array_value (config, "Maxs")) - 4);
-	//char ids [] = malloc (sizeof (config_get_array_value (config, "Ids")) - 1);
-
 	char ***vals = config_get_array_value (config, "Vals");
-
 	char ***maxs = config_get_array_value (config, "Maxs");
-
 	char ***ids = config_get_array_value (config, "Ids");
+
+	char id;
 
 	int val;
 
@@ -21,24 +17,20 @@ void _suse_init () {
 
 		sem -> sig = repo;
 
-		sem -> id = ids [i];
-		printf ("%c, %c\n", sem -> id, ids [i]);
+		id = *ids [i];
+
+		sem -> id = id;
 
 		max = atoi (maxs [i]);
 
 		sem -> max = max;
-		printf ("%i, %i\n", sem -> max, max);
 
 		val = atoi (vals [i]);
 
 		sem -> val = val;
-		printf ("%i, %i\n", sem -> val, val);
 
 		repo = sem;
 	}
-	struct semaforo *sem2 = malloc (sizeof (struct semaforo));
-	*sem2= *repo;
-	printf("%c",sem2->id);
 }
 
 void crear (int cliente) {
