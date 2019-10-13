@@ -10,6 +10,10 @@ TP 2do Cuatrimestre 2019 de Sistemas Operativos en UTN FRBA
 * Peduto, Francisco  (1642108)
 * Pesce, Macarena Agostina  (1637824)
 
+## División del trabajo en SAC ##
+* sac-cli Mari
+* sac-server Noe
+
 ## Ayudantes ##
 
 Damian Facchini y Gaston Castineira
