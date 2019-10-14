@@ -6,6 +6,7 @@
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <commons/config.h>
 
 /*Funciones de FUSE - Callbacks
  * Crear, escribir y borrar archivos
@@ -50,6 +51,12 @@ struct fuse_operations sac_cli_operations = {
 
 
 int main(int argc, char* argv[]) {
+
+	char* ip_server = malloc(15); //Suficiente para una dirección IP. Ver después
+	int puerto_server;
+	t_config* config = config_create("config-cli.config");
+	ip_server = config_get_string_value("IP_SERVER");
+	puerto_server = config_get_int_value("PUERTO_SERVER");
 
 	int fuse_stat;
 	/**
