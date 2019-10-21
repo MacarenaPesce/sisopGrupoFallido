@@ -6,8 +6,9 @@
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <commons/config.h>
+#include "hablar-servidor.h"
 #include "estructuras-fs.h"
+
 
 /*Funciones de FUSE - Callbacks
  * Crear, escribir y borrar archivos
@@ -24,12 +25,18 @@ int sac_mknod(const char *path, mode_t mode, dev_t dev) {
 
 /** Set access and modification time, with nanosecond resolution.
  * The arguments are the number of nanoseconds since jan 1 1970 00:00.**/
-int sac_utimens(char* path, int atime, int mtime) {}
+int sac_utimens(const char* path, const struct timespec tv[2], struct fuse_file_info *fi) {}
 
 int sac_write(const char *path, const char *buf, size_t size, off_t offset,
 	     struct fuse_file_info *fi) {}
 
-int sac_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi) {}
+int sac_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi) {
+    printf("\n ===> bb_read(path=\"%s\", size=%d, offset=%lld)\n",
+	    path,  size, offset);
+	buf = pedir_oper_sacServer(path, 5);
+
+	return strlen(buf);//número de bytes leidos
+}
 
 int sac_unlink(const char *path) {}
 /* Para descrbir archivos y directorios */

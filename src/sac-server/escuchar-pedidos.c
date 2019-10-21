@@ -97,8 +97,8 @@ int main(void) {
 		exit(1);
 	}
 
-	printf("Estoy escuchando, invita a tus amigos al server %s on "
-			"socket %d\n", inet_ntoa(my_addr.sin_addr), MYPORT);
+	printf("Estoy escuchando, invita a tus amigos al server %s en el "
+			"puerto %d\n", inet_ntoa(my_addr.sin_addr), MYPORT);
 
 	while (1) {  // main accept() loop
 		sin_size = sizeof(struct sockaddr_in);

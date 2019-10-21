@@ -22,4 +22,7 @@ struct cliente_op {
 	struct sockaddr_in their_addr;
 };
 
+void control_error_conexion(int bytes_leidos, struct sockaddr_in cliente, int fd_cliente);
+void* atender_pedidos(void* cliente_nuevo);
+
 #endif /* SAC_SERVER_ESCUCHAR_PEDIDOS_H_ */

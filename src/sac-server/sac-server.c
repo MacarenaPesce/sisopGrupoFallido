@@ -1,8 +1,7 @@
-/*
- * sac-server.c
- *
- *  Created on: 6 oct. 2019
- *      Author: utnso
- */
+#include <stdio.h>
+#include <stdlib.h>
 
+int main() {
 
+	return 0;
+}

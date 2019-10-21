@@ -16,6 +16,6 @@ t_config* config;
 char ip_server[20];
 int puerto_server;
 void datos_server();
-int pedir_oper_sacServer(char* pedido_oper, int codigo_oper);
+char* pedir_oper_sacServer(const char* pedido_oper, int codigo_oper);
 
 #endif /* SAC_CLI_HABLAR_SERVIDOR_H_ */

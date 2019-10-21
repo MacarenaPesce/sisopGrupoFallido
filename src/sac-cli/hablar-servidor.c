@@ -9,7 +9,7 @@ void datos_server() {
 }
 
 
-int pedir_oper_sacServer(char* pedido_oper, int codigo_oper) {
+char* pedir_oper_sacServer(const char* pedido_oper, int codigo_oper) {
 	datos_server(); //mover a sac-cli
 
 
@@ -28,8 +28,6 @@ int pedir_oper_sacServer(char* pedido_oper, int codigo_oper) {
 	if ((servidor = connect(cliente, (void*) &direccionservidor,
 			sizeof(direccionservidor))) != 0) {
 		perror("No me pude conectar.\n");
-
-		return 1;
 	}
 
 	printf("Estoy aquí. : D\n");
@@ -50,6 +48,6 @@ int pedir_oper_sacServer(char* pedido_oper, int codigo_oper) {
 	//free(mensaje);
 	close(cliente);
 	close(servidor);
-	return 0;
+	return mensaje;
 }
 
