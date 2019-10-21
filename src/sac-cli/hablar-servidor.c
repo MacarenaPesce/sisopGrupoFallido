@@ -1,27 +1,25 @@
-#include <readline/readline.h>
-#include <commons/string.h>
-#include <commons/config.h>
-#include <commons/log.h>  //ver si es necesario
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include "hablar-servidor.h"
+
+void datos_server() {
+	config = config_create("config-cli.config");
+	char* ip_valor = config_get_string_value(config, "IP_SERVER");
+	strcpy(ip_server, ip_valor);
+	puerto_server = config_get_int_value(config, "PUERTO_SERVER");
+	config_destroy(config);
+}
 
 
+int pedir_oper_sacServer(char* pedido_oper, int codigo_oper) {
+	datos_server(); //mover a sac-cli
 
-int pedir_oper_sacServer(char* ip, int puerto, char* pedido_oper, int codigo_oper) {
 
-	char *tamaniomensajecasteado = malloc(1);
-	char *caracter = malloc(1);
-	char *mensaje = malloc(1);
 	int tamaniomensaje = 0;
 
 	struct sockaddr_in direccionservidor;
 	direccionservidor.sin_family = AF_INET;
 	direccionservidor.sin_addr.s_addr = INADDR_ANY; //Cambiar por ip del servdor
-	direccionservidor.sin_port = htons(1024); //cambiar por puerto
+	direccionservidor.sin_port = htons(puerto_server); //cambiar por puerto
+	memset(&(direccionservidor.sin_zero), '\0', 8);
 
 	int cliente = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -34,23 +32,24 @@ int pedir_oper_sacServer(char* ip, int puerto, char* pedido_oper, int codigo_ope
 		return 1;
 	}
 
-	printf("Estoy aquí.\nMensaje para el servidor: ");
+	printf("Estoy aquí. : D\n");
 
-	char *mensaje = malloc(strlen(pedido_oper) + 2);
-	sprintf(mensaje, "%c%s", codigo_oper, pedido_oper);
-	free(pedido_oper);
-	send(cliente, mensaje, sizeof(mensaje) + 1, 0);
+	char *mensaje = malloc(strlen(pedido_oper) + 10);
+	sprintf(mensaje, "%c%c%s", codigo_oper,strlen(pedido_oper), pedido_oper);//ej: 54hola (5 en char)
+	send(cliente, mensaje, strlen(mensaje) + 1, 0);
+	printf("lo que mando %s\n", mensaje);
 
 	//Recibir la respuesta del servidor
 	recv(cliente, mensaje, 1, 0);
-	tamaniomensaje = *mensaje; //El tamaño está concatenado al mensaje que manda el servidor
-	recv(cliente, mensaje, tamaniomensaje + 1, 0);
+	tamaniomensaje = mensaje[0]; //El tamaño está concatenado al mensaje que manda el servidor
+	printf("la respuesta del servidor pesa %i\n", tamaniomensaje);
+	recv(cliente, mensaje, tamaniomensaje, 0);
 	mensaje[tamaniomensaje] = '\0';
 	printf("%s\n", mensaje);
 
-	free(mensaje);
+	//free(mensaje);
 	close(cliente);
-
+	close(servidor);
 	return 0;
 }
 

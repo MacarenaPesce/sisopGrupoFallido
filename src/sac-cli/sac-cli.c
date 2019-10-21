@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <commons/config.h>
+#include "estructuras-fs.h"
 
 /*Funciones de FUSE - Callbacks
  * Crear, escribir y borrar archivos
@@ -17,7 +18,9 @@
 
 void *sac_init(struct fuse_conn_info *conn) {}
 
-int sac_mknod(const char *path, mode_t mode, dev_t dev) {}
+int sac_mknod(const char *path, mode_t mode, dev_t dev) {
+
+}
 
 /** Set access and modification time, with nanosecond resolution.
  * The arguments are the number of nanoseconds since jan 1 1970 00:00.**/
@@ -52,11 +55,7 @@ struct fuse_operations sac_cli_operations = {
 
 int main(int argc, char* argv[]) {
 
-	char* ip_server = malloc(15); //Suficiente para una dirección IP. Ver después
-	int puerto_server;
-	t_config* config = config_create("config-cli.config");
-	ip_server = config_get_string_value("IP_SERVER");
-	puerto_server = config_get_int_value("PUERTO_SERVER");
+
 
 	int fuse_stat;
 	/**
