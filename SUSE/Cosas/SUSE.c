@@ -1,47 +1,47 @@
 #include "SUSE.h"
 
-void _suse_init () {
+void suse_init () {
 	t_config *config = config_create ("Cosas/Config.config");
 	char ***vals = config_get_array_value (config, "Vals");
 	char ***maxs = config_get_array_value (config, "Maxs");
 	char ***ids = config_get_array_value (config, "Ids");
 
-	char id;
-
-	int val;
-
-	int max;
-
 	for (int i = 0; i < sizeof (config_get_array_value (config, "Vals")) - 1; i++) {
-		struct semaforo *sem = malloc (sizeof (struct semaforo));
+		struct semaforo *semaforo = malloc (sizeof (struct semaforo));
 
-		sem -> sig = repo;
+		semaforo -> sig = semaforos;
 
-		id = *ids [i];
+		semaforo -> id = *ids [i];
 
-		sem -> id = id;
+		semaforo -> max = atoi (maxs [i]);
 
-		max = atoi (maxs [i]);
+		semaforo -> val = atoi (vals [i]);
 
-		sem -> max = max;
-
-		val = atoi (vals [i]);
-
-		sem -> val = val;
-
-		repo = sem;
+		semaforos = semaforo;
 	}
 }
 
-void crear (int cliente) {
+void crear (struct programa programa, char *request) {
+	struct ult ult;
 
+	ult.id = atoi (request [1]) * 1000 + atoi (request [2]) * 100 + atoi (request [3]) * 10 + atoi (request [4]);
+
+	ult.sig = programa.ults;
+
+	programa.ults = &ult;
 }
 
 void atender (int cliente, char *request) {
-	int codigo = *request;
+	struct programa programa;
 
-	switch (codigo) {
-		case 1: crear (cliente);
+	programa.id = cliente;
+
+	programa.sig = programas;
+
+	programas = &programa;
+
+	switch (*request) {
+		case 1: crear (programa, request);
 	}
 }
 
@@ -155,7 +155,7 @@ void despertar () {
 }
 
 void main () {
-	_suse_init ();
+	suse_init ();
 
 	despertar ();
 }
