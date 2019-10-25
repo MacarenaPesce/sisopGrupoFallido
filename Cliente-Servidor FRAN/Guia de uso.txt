@@ -1,8 +1,0 @@
-Hermafrodita tiene código tanto de cliente, como de servidor (por eso hermafrodita :p)
-
-
-Escuchar:
-	Es un SERVIDOR que utiliza select (multiplexación) para atender varios clientes de manera concurrente, no en paralelo.
-	Es capaz de reenviar mensajes a sus clientes y puede modificarse para que envíe mensajes distintos.
-Hablar:
-	Es un CLIENTE que se conecta a un servidor y es capaz de enviar mensajes y de recibirlos. Muy útil si se requiere un cliente que envíe una solicitud y deba esperar una respuesta.
