@@ -17,18 +17,18 @@
  * Describir directorios y archivos
  * */
 
-void *sac_init(struct fuse_conn_info *conn) {}
+void *sac_init(struct fuse_conn_info *conn) {return 0;}
 
 int sac_mknod(const char *path, mode_t mode, dev_t dev) {
-
+	return 0;
 }
 
 /** Set access and modification time, with nanosecond resolution.
  * The arguments are the number of nanoseconds since jan 1 1970 00:00.**/
-int sac_utimens(const char* path, const struct timespec tv[2], struct fuse_file_info *fi) {}
+int sac_utimens (const char *path, const struct timespec tv[2]) {return 0;}
 
 int sac_write(const char *path, const char *buf, size_t size, off_t offset,
-	     struct fuse_file_info *fi) {}
+	     struct fuse_file_info *fi) {return 0;}
 
 int sac_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi) {
     printf("\n ===> bb_read(path=\"%s\", size=%d, offset=%lld)\n",
@@ -38,13 +38,13 @@ int sac_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 	return strlen(buf);//número de bytes leidos
 }
 
-int sac_unlink(const char *path) {}
+int sac_unlink(const char *path) {return 0;}
 /* Para descrbir archivos y directorios */
-int sac_getattr(const char *path, struct stat *statbuf) {}
+int sac_getattr(const char *path, struct stat *statbuf) {return 0;}
 
-int sac_mkdir(const char *path, mode_t mode) {}
+int sac_mkdir(const char *path, mode_t mode) {return 0;}
 
-int sac_rmdir(const char *path) {}
+int sac_rmdir(const char *path) {return 0;}
 
 
 struct fuse_operations sac_cli_operations = {
@@ -76,6 +76,7 @@ int main(int argc, char* argv[]) {
 	 * @return the created FUSE handle
 	 */
 
+	printf("fuse stat %i\n", fuse_stat);
 	fuse_stat = fuse_main(argc, argv, &sac_cli_operations, NULL);
 	return fuse_stat;
 }
