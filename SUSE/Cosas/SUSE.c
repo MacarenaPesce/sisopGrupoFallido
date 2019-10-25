@@ -24,7 +24,11 @@ void suse_init () {
 void crear (struct programa programa, char *request) {
 	struct ult ult;
 
-	ult.id = atoi (request [1]) * 1000 + atoi (request [2]) * 100 + atoi (request [3]) * 10 + atoi (request [4]);
+	ult.id = request [1] * 1000 + request [2] * 100 + request [3] * 10 + request [4];
+
+	ult.estimacion = 0;
+
+	ult.inicio = (int) clock ();
 
 	ult.sig = programa.ults;
 

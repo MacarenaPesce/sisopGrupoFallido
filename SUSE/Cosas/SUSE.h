@@ -29,6 +29,8 @@ struct programa {
 
 struct ult {
 	struct ult *sig;
+	int estimacion;
+	int inicio;
 	int id;
 };
 

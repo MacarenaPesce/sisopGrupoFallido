@@ -18,7 +18,13 @@ int suse_create (int tid) {
 
 	cantults++;
 
-	itoa (tid, tidcasteado, 10);
+	tidcasteado [0] = tid / 1000;
+
+	tidcasteado [1] = tid / 100 - (tid / 1000) * 10;
+
+	tidcasteado [2] = tid / 10 - (tid / 100) * 10;
+
+	tidcasteado [3] = tid - (tid / 10) * 10;
 
 	sprintf (mensaje, "%c%s", 1, tidcasteado);
 
