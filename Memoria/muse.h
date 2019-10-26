@@ -6,7 +6,7 @@
 #ifndef MUSE_H_
 #define MUSE_H_
 
-#include "libmuse.h"
+#include "libmuse/src/libmuse.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <commons/log.h>
@@ -32,9 +32,15 @@ typedef struct tHeapMeta{
 	bool isFree;
 };
 
-t_log *g_logger;
-t_config *g_config;
-config configuracion;
+/* Loggers y Config */
+
+t_log *logger;
+t_config *config;
+char *rutaConfig;
+struct config configuracion;
+
+/* Funciones */
+
 void iniciarConfiguracion();
 void iniciarLog();
 char *obtenerPorClave(char *clave);
