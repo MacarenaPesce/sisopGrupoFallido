@@ -10,13 +10,17 @@
 #ifndef SUSE_H_
 #define SUSE_H_
 
+t_config *config;
+
+t_log *log;
+
 struct semaforo *semaforos = NULL;
 
 struct programa *programas = NULL;
 
 struct semaforo {
 	struct semaforo *sig;
-	char id;
+	char sid;
 	int max;
 	int val;
 };
@@ -24,14 +28,22 @@ struct semaforo {
 struct programa {
 	struct programa *sig;
 	struct ult *ults;
-	int id;
+	int pid;
 };
 
 struct ult {
+	double estimacion;
 	struct ult *sig;
-	int estimacion;
+	int duracion;
 	int inicio;
-	int id;
+	int estado;
+	int tid;
+};
+
+enum estado {
+	Bloqueado,
+	Ejecutando,
+	Listo
 };
 
 #endif

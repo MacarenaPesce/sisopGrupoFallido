@@ -1,17 +1,16 @@
 #include "SUSE.h"
 
 void suse_init () {
-	t_config *config = config_create ("Cosas/Config.config");
 	char ***vals = config_get_array_value (config, "Vals");
 	char ***maxs = config_get_array_value (config, "Maxs");
-	char ***ids = config_get_array_value (config, "Ids");
+	char ***sids = config_get_array_value (config, "Ids");
 
 	for (int i = 0; i < sizeof (config_get_array_value (config, "Vals")) - 1; i++) {
 		struct semaforo *semaforo = malloc (sizeof (struct semaforo));
 
 		semaforo -> sig = semaforos;
 
-		semaforo -> id = *ids [i];
+		semaforo -> sid = *sids [i];
 
 		semaforo -> max = atoi (maxs [i]);
 
@@ -21,31 +20,102 @@ void suse_init () {
 	}
 }
 
+struct programa buscarprograma (int pid) {
+	struct programa *recorrido = programas;
+
+	while (*recorrido) {
+		if (recorrido -> pid == pid)
+			return *recorrido;
+
+		recorrido = recorrido -> sig;
+	}
+
+	return NULL;
+}
+
 void crear (struct programa programa, char *request) {
 	struct ult ult;
 
-	ult.id = request [1] * 1000 + request [2] * 100 + request [3] * 10 + request [4];
+	ult.tid = request [1] * 1000 + request [2] * 100 + request [3] * 10 + request [4];
 
 	ult.estimacion = 0;
 
 	ult.inicio = (int) clock ();
+
+	ult.estado = Listo;
 
 	ult.sig = programa.ults;
 
 	programa.ults = &ult;
 }
 
+double estimacion (double estimacion, int duracion) {
+	return estimacion * config_get_double_value (config, "Alfa") + duracion * (1 - config_get_double_value (config, "Alfa"));
+}
+
+void planificar (struct programa programa, int cliente) {
+	struct ult *recorrido = programa.ults;
+	char *tidcasteado;
+	int estimacion;
+	int mejor;
+	int tid;
+
+	while (*recorrido) {
+		if (recorrido -> estado == Listo) {
+			estimacion = estimacion (recorrido -> estimacion, recorrido -> duracion);
+
+			mejor = estimacion;
+
+			tid = recorrido -> tid;
+
+			break;
+		}
+
+		recorrido = recorrido -> sig;
+	}
+
+	recorrido = programa.ults;
+
+	while (*recorrido) {
+		if (recorrido -> estado == Listo) {
+			estimacion = estimacion (recorrido -> estimacion, recorrido -> duracion);
+
+			if (estimacion < mejor) {
+				mejor = estimacion;
+
+				tid = recorrido -> tid;
+			}
+		}
+
+		recorrido = recorrido -> sig;
+	}
+
+	recorrido = programa.ults;
+
+	while (recorrido -> tid != tid)
+		recorrido = recorrido -> sig;
+
+	tidcasteado [0] = tid / 1000;
+
+	tidcasteado [1] = tid / 100 - (tid / 1000) * 10;
+
+	tidcasteado [2] = tid / 10 - (tid / 100) * 10;
+
+	tidcasteado [3] = tid - (tid / 10) * 10;
+
+	recorrido -> estimacion = mejor;
+
+	recorrido -> inicio = (int) clock ();
+
+	recorrido -> estado = Ejecutando;
+
+	send (cliente, tidcasteado, 4, 0);
+}
+
 void atender (int cliente, char *request) {
-	struct programa programa;
-
-	programa.id = cliente;
-
-	programa.sig = programas;
-
-	programas = &programa;
-
 	switch (*request) {
-		case 1: crear (programa, request);
+		case 1: crear (buscarprograma (cliente), request); break;
+		case 2: planificar (buscarprograma (cliente), cliente);
 	}
 }
 
@@ -111,13 +181,21 @@ void despertar () {
 							maximofd = nuevofd;
 
 						printf ("Nueva conexión en %i.\n", nuevofd);
+
+						struct programa programa;
+
+						programa.pid = cliente;
+
+						programa.sig = programas;
+
+						programas = &programa;
 					}
 				}
 
 				else {
 					mensaje = realloc (mensaje, 1);
 
-					if (recv (i, mensaje, 1, 0) <= 0) {
+					if (recv (i, mensaje, 1, 0) <= 0 || ! buscarprograma (cliente)) {
 						printf ("El cliente %i se desconectó.\n", i);
 
 						close (i);
@@ -159,6 +237,10 @@ void despertar () {
 }
 
 void main () {
+	config = config_create ("Cosas/Config.config");
+
+	log = log_create ("Log.log", "SUSE.c", 1, LOG_LEVEL_INFO);
+
 	suse_init ();
 
 	despertar ();
