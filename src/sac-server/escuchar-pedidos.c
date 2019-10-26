@@ -11,8 +11,10 @@ int control_error_conexion(int bytes_leidos, struct sockaddr_in cliente,
 	}
 	if (bytes_leidos < 0) {
 		perror("recv");
+		return -2;
 		//exit(-1); CONSULTAR
 	}
+	return 0;
 }
 
 void* atender_pedidos(void* cliente_nuevo) {
@@ -68,7 +70,7 @@ void* atender_pedidos(void* cliente_nuevo) {
 
 	}
 	close(datos_cliente->new_fd);
-	exit(0);
+	//exit(0);
 }
 
 int main(void) {
@@ -107,6 +109,7 @@ int main(void) {
 	printf("Estoy escuchando, invita a tus amigos al server %s en el "
 			"puerto %d\n", inet_ntoa(my_addr.sin_addr), MYPORT);
 
+	int cont = 0;
 	while (1) {  // main accept() loop
 		sin_size = sizeof(struct sockaddr_in);
 		if ((new_fd = accept(sockfd, (struct sockaddr *) &their_addr, &sin_size))
@@ -130,8 +133,12 @@ int main(void) {
 		int estado = pthread_create(&thread_escuchar, &atributos,
 				atender_pedidos, &nuevo_cliente);
 		printf("estado %i\n", estado);
+
+		printf("\nwhile número %i\n", cont);
+		cont++;
 	}
 
+	printf("me salí del while\n");
 	return 0;
 
 }
