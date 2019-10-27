@@ -20,12 +20,12 @@ void suse_init () {
 	}
 }
 
-struct programa buscarprograma (int pid) {
+struct programa *buscarprograma (int pid) {
 	struct programa *recorrido = programas;
 
-	while (*recorrido) {
+	while (recorrido) {
 		if (recorrido -> pid == pid)
-			return *recorrido;
+			return recorrido;
 
 		recorrido = recorrido -> sig;
 	}
@@ -55,16 +55,16 @@ double estimacion (double estimacion, int duracion) {
 
 void planificar (struct programa programa, int cliente) {
 	struct ult *recorrido = programa.ults;
-	char *tidcasteado;
-	int estimacion;
+	char *tidcasteado = malloc (4);
+	double estimado;
 	int mejor;
 	int tid;
 
-	while (*recorrido) {
+	while (recorrido) {
 		if (recorrido -> estado == Listo) {
-			estimacion = estimacion (recorrido -> estimacion, recorrido -> duracion);
+			estimado = estimacion (recorrido -> estimacion, recorrido -> duracion);
 
-			mejor = estimacion;
+			mejor = estimado;
 
 			tid = recorrido -> tid;
 
@@ -76,12 +76,12 @@ void planificar (struct programa programa, int cliente) {
 
 	recorrido = programa.ults;
 
-	while (*recorrido) {
+	while (recorrido) {
 		if (recorrido -> estado == Listo) {
-			estimacion = estimacion (recorrido -> estimacion, recorrido -> duracion);
+			estimado = estimacion (recorrido -> estimacion, recorrido -> duracion);
 
-			if (estimacion < mejor) {
-				mejor = estimacion;
+			if (estimado < mejor) {
+				mejor = estimado;
 
 				tid = recorrido -> tid;
 			}
@@ -110,12 +110,84 @@ void planificar (struct programa programa, int cliente) {
 	recorrido -> estado = Ejecutando;
 
 	send (cliente, tidcasteado, 4, 0);
+
+	free (tidcasteado);
+}
+
+void joinear (struct programa programa, char *request) {
+	struct ult *recorrido = programa.ults;
+	struct ult *joineado;
+	int tid;
+
+	while (recorrido) {
+		if (recorrido -> estado == Ejecutando) {
+			recorrido -> estado = Bloqueado;
+
+			joineado = recorrido;
+
+			break;
+		}
+
+		recorrido = recorrido -> sig;
+	}
+
+	tid = request [1] * 1000 + request [2] * 100 + request [3] * 10 + request [4];
+
+	recorrido = programa.ults;
+
+	while (recorrido) {
+		if (recorrido -> tid == tid) {
+			joineado -> sig = recorrido -> joineados;
+
+			recorrido -> joineados = joineado;
+
+			break;
+		}
+
+		recorrido -> sig;
+	}
+}
+
+void cerrar (struct programa programa, char *request) {
+	struct ult *ult = programa.ults;
+	struct ult *recorrido;
+	struct ult *joineado;
+	int tid;
+
+	tid = request [1] * 1000 + request [2] * 100 + request [3] * 10 + request [4];
+
+	while (ult -> tid != tid)
+		ult = ult -> sig;
+
+	joineado = ult -> joineados;
+
+	while (joineado) {
+		joineado -> estado = Listo;
+
+		joineado = joineado -> sig;
+	}
+
+	recorrido = programa.ults;
+
+	if (recorrido -> tid == ult -> tid)
+		programa.ults = ult -> sig;
+
+	else {
+		while (recorrido -> sig -> tid != ult -> tid)
+			recorrido = recorrido -> sig;
+
+		recorrido -> sig = ult -> sig;
+	}
+
+	free (ult);
 }
 
 void atender (int cliente, char *request) {
 	switch (*request) {
-		case 1: crear (buscarprograma (cliente), request); break;
-		case 2: planificar (buscarprograma (cliente), cliente);
+		case 1: crear (*buscarprograma (cliente), request); break;
+		case 2: planificar (*buscarprograma (cliente), cliente); break;
+		case 3: joinear (*buscarprograma (cliente), request); break;
+		case 4: cerrar (*buscarprograma (cliente), request); break;
 	}
 }
 
@@ -182,21 +254,47 @@ void despertar () {
 
 						printf ("Nueva conexión en %i.\n", nuevofd);
 
-						struct programa programa;
+						struct programa *programa = malloc (sizeof (struct programa));
 
-						programa.pid = cliente;
+						programa -> pid = i;
 
-						programa.sig = programas;
+						programa -> sig = programas;
 
-						programas = &programa;
+						programas = programa;
 					}
 				}
 
 				else {
 					mensaje = realloc (mensaje, 1);
 
-					if (recv (i, mensaje, 1, 0) <= 0 || ! buscarprograma (cliente)) {
+					if (recv (i, mensaje, 1, 0) <= 0 || ! buscarprograma (i)) {
 						printf ("El cliente %i se desconectó.\n", i);
+
+						if (buscarprograma (i)) {
+							struct programa *programa = buscarprograma (i);
+							struct programa *recorrido = programas;
+							struct ult *ult = programa -> ults;
+
+							while (ult) {
+								struct ult *aux = ult -> sig;
+
+								free (ult);
+
+								ult = aux;
+							}
+
+							if (recorrido -> pid == programa -> pid)
+								programas = programa -> sig;
+
+							else {
+								while (recorrido -> sig -> pid != programa -> pid)
+									recorrido = recorrido -> sig;
+
+								recorrido -> sig = programa -> sig;
+							}
+
+							free (programa);
+						}
 
 						close (i);
 

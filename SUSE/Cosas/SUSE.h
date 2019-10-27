@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #ifndef SUSE_H_
 #define SUSE_H_
@@ -32,6 +33,7 @@ struct programa {
 };
 
 struct ult {
+	struct ult *joineados;
 	double estimacion;
 	struct ult *sig;
 	int duracion;
@@ -41,9 +43,9 @@ struct ult {
 };
 
 enum estado {
-	Bloqueado,
+	Listo,
 	Ejecutando,
-	Listo
+	Bloqueado
 };
 
 #endif

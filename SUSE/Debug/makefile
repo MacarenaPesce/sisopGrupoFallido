@@ -25,11 +25,14 @@ endif
 # All Target
 all: SUSE
 
+dependents:
+	-cd /home/utnso/workspace/Hilolay/Debug && $(MAKE) clean all
+
 # Tool invocations
-SUSE: $(OBJS) $(USER_OBJS)
+SUSE: $(OBJS) $(USER_OBJS) /home/utnso/workspace/Hilolay/Debug/libHilolay.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc  -o "SUSE" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/workspace/Hilolay/Debug" -o "SUSE" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -39,5 +42,6 @@ clean:
 	-@echo ' '
 
 .PHONY: all clean dependents
+/home/utnso/workspace/Hilolay/Debug/libHilolay.so:
 
 -include ../makefile.targets
