@@ -64,6 +64,8 @@ int muse_cpy(uint32_t dst, void* src, int n){
      * @param n Cantidad de bytes a copiar.
      * @return Si pasa un error, retorna -1. Si la operación se realizó correctamente, retorna 0.
      */
+	//parecido al anterior, cambia que es en MUSE
+	//entender cual es la diferencia entre local y muse para copiar
 }
 
 uint32_t muse_map(char *path, size_t length, int flags){
@@ -78,6 +80,10 @@ uint32_t muse_map(char *path, size_t length, int flags){
      * @note: Si `length` sobrepasa el tamaño del archivo, toda extensión deberá estar llena de "\0".
      * @note: muse_free no libera la memoria mappeada. @see muse_unmap
      */
+	//ver como se mapea una posicion de memoria
+	//Ver como se relaciona un Path con el FS
+	//
+
 }
 
 int muse_sync(uint32_t addr, size_t len){
@@ -99,6 +105,8 @@ int muse_unmap(uint32_t dir){
      * @note Solo se deberá cerrar el archivo mappeado una vez que todos los hilos hayan liberado la misma cantidad de muse_unmap que muse_map.
      * @return Si pasa un error, retorna -1. Si la operación se realizó correctamente, retorna 0.
      */
+	//tengo 2 opciones para retornar, hay un if
+	//ver
 }
 
 -----------------------------
