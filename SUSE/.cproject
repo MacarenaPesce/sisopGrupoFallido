@@ -37,7 +37,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Hilolay/Debug}&quot;"/>
 								</option>
 								<option id="gnu.c.link.option.libs.1488166153" name="Libraries (-l)" superClass="gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
-									<listOptionValue builtIn="false" value="Hilolay"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="Hilolay"/>
 									<listOptionValue builtIn="false" value="pthread"/>
 									<listOptionValue builtIn="false" value="commons"/>
 								</option>

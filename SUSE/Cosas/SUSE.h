@@ -12,7 +12,9 @@
 #ifndef SUSE_H_
 #define SUSE_H_
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t vector;
+
+pthread_mutex_t logs;
 
 t_config *config;
 
@@ -30,8 +32,11 @@ struct semaforo {
 };
 
 struct programa {
+	pthread_mutex_t *hilos;
+	pthread_mutex_t *mutex;
 	struct programa *sig;
 	struct ult *ults;
+	char tienehilos;
 	int pid;
 };
 
@@ -43,6 +48,13 @@ struct ult {
 	int inicio;
 	int estado;
 	int tid;
+};
+
+struct parametros {
+	struct programa* programa;
+	pthread_t *atendedor;
+	char *request;
+	int cliente;
 };
 
 enum estado {

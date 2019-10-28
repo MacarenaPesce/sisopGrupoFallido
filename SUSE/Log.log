@@ -1,0 +1,276 @@
+[INFO] 14:31:24:566 SUSE.c/(5840:5840): Inicializando semáforos.
+[INFO] 14:31:24:567 SUSE.c/(5840:5840): Semáforos iniciados con éxito.
+[INFO] 14:31:24:567 SUSE.c/(5840:5840): Levantando servidor.
+[INFO] 14:31:24:567 SUSE.c/(5840:5840): Servidor levantado en el fichero 4.
+[INFO] 14:31:24:567 SUSE.c/(5840:5840): Estoy escuchando.
+[INFO] 14:31:33:501 SUSE.c/(5840:5840): Nueva conexión en 5.
+[INFO] 14:31:33:509 SUSE.c/(5840:5861): Atendiendo al cliente 5.
+[INFO] 14:31:33:509 SUSE.c/(5840:5861): Planificando el siguente ult del programa 5.
+[INFO] 14:31:33:510 SUSE.c/(5840:5861): El que sigue es el ult -1216729088 con el estimado 0.000000.
+[INFO] 14:39:12:150 SUSE.c/(6085:6085): Inicializando semáforos.
+[INFO] 14:39:12:151 SUSE.c/(6085:6085): Semáforos iniciados con éxito.
+[INFO] 14:39:12:152 SUSE.c/(6085:6085): Levantando servidor.
+[INFO] 14:39:12:152 SUSE.c/(6085:6085): Servidor levantado en el fichero 4.
+[INFO] 14:39:12:152 SUSE.c/(6085:6085): Estoy escuchando.
+[INFO] 14:39:19:608 SUSE.c/(6085:6085): Nueva conexión en 5.
+[INFO] 14:41:26:655 SUSE.c/(6182:6182): Inicializando semáforos.
+[INFO] 14:41:26:655 SUSE.c/(6182:6182): Semáforos iniciados con éxito.
+[INFO] 14:41:26:655 SUSE.c/(6182:6182): Levantando servidor.
+[INFO] 14:41:26:655 SUSE.c/(6182:6182): Servidor levantado en el fichero 4.
+[INFO] 14:41:26:655 SUSE.c/(6182:6182): Estoy escuchando.
+[INFO] 14:41:59:30 SUSE.c/(6182:6182): Nueva conexión en 5.
+[INFO] 14:43:20:55 SUSE.c/(6273:6273): Inicializando semáforos.
+[INFO] 14:43:20:57 SUSE.c/(6273:6273): Semáforos iniciados con éxito.
+[INFO] 14:43:20:57 SUSE.c/(6273:6273): Levantando servidor.
+[INFO] 14:43:20:57 SUSE.c/(6273:6273): Servidor levantado en el fichero 4.
+[INFO] 14:43:20:57 SUSE.c/(6273:6273): Estoy escuchando.
+[INFO] 14:43:24:84 SUSE.c/(6273:6273): Nueva conexión en 5.
+[INFO] 14:50:05:944 SUSE.c/(6465:6465): Inicializando semáforos.
+[INFO] 14:50:05:947 SUSE.c/(6465:6465): Semáforos iniciados con éxito.
+[INFO] 14:50:05:947 SUSE.c/(6465:6465): Levantando servidor.
+[INFO] 14:50:05:947 SUSE.c/(6465:6465): Servidor levantado en el fichero 4.
+[INFO] 14:50:05:947 SUSE.c/(6465:6465): Estoy escuchando.
+[INFO] 14:50:14:219 SUSE.c/(6465:6465): Nueva conexión en 5.
+[INFO] 15:03:25:494 SUSE.c/(6997:6997): Inicializando semáforos.
+[INFO] 15:03:25:495 SUSE.c/(6997:6997): Semáforos iniciados con éxito.
+[INFO] 15:03:25:495 SUSE.c/(6997:6997): Levantando servidor.
+[INFO] 15:03:25:495 SUSE.c/(6997:6997): Servidor levantado en el fichero 4.
+[INFO] 15:03:25:495 SUSE.c/(6997:6997): Estoy escuchando.
+[INFO] 15:03:28:694 SUSE.c/(6997:6997): Nueva conexión en 5.
+[INFO] 15:03:55:749 SUSE.c/(7049:7049): Inicializando semáforos.
+[INFO] 15:03:55:750 SUSE.c/(7049:7049): Semáforos iniciados con éxito.
+[INFO] 15:03:55:750 SUSE.c/(7049:7049): Levantando servidor.
+[INFO] 15:03:55:750 SUSE.c/(7049:7049): Servidor levantado en el fichero 4.
+[INFO] 15:03:55:750 SUSE.c/(7049:7049): Estoy escuchando.
+[INFO] 15:04:09:66 SUSE.c/(7076:7076): Inicializando semáforos.
+[INFO] 15:04:09:69 SUSE.c/(7076:7076): Semáforos iniciados con éxito.
+[INFO] 15:04:09:69 SUSE.c/(7076:7076): Levantando servidor.
+[INFO] 15:04:09:69 SUSE.c/(7076:7076): Servidor levantado en el fichero 4.
+[INFO] 15:04:09:70 SUSE.c/(7076:7076): "Address already in use" re cualquiera je :}.
+[INFO] 15:04:33:747 SUSE.c/(7098:7098): Inicializando semáforos.
+[INFO] 15:04:33:748 SUSE.c/(7098:7098): Semáforos iniciados con éxito.
+[INFO] 15:04:33:748 SUSE.c/(7098:7098): Levantando servidor.
+[INFO] 15:04:33:748 SUSE.c/(7098:7098): Servidor levantado en el fichero 4.
+[INFO] 15:04:33:748 SUSE.c/(7098:7098): Estoy escuchando.
+[INFO] 15:04:37:439 SUSE.c/(7098:7098): Nueva conexión en 5.
+[INFO] 15:05:04:820 SUSE.c/(7162:7162): Inicializando semáforos.
+[INFO] 15:05:04:821 SUSE.c/(7162:7162): Semáforos iniciados con éxito.
+[INFO] 15:05:04:821 SUSE.c/(7162:7162): Levantando servidor.
+[INFO] 15:05:04:821 SUSE.c/(7162:7162): Servidor levantado en el fichero 4.
+[INFO] 15:05:04:821 SUSE.c/(7162:7162): Estoy escuchando.
+[INFO] 15:05:08:437 SUSE.c/(7162:7162): Nueva conexión en 5.
+[INFO] 15:05:31:17 SUSE.c/(7224:7224): Inicializando semáforos.
+[INFO] 15:05:31:23 SUSE.c/(7224:7224): Semáforos iniciados con éxito.
+[INFO] 15:05:31:23 SUSE.c/(7224:7224): Levantando servidor.
+[INFO] 15:05:31:23 SUSE.c/(7224:7224): Servidor levantado en el fichero 4.
+[INFO] 15:05:31:24 SUSE.c/(7224:7224): Estoy escuchando.
+[INFO] 15:05:34:656 SUSE.c/(7224:7224): Nueva conexión en 5.
+[INFO] 15:09:02:190 SUSE.c/(7370:7370): Inicializando semáforos.
+[INFO] 15:09:02:269 SUSE.c/(7370:7370): Semáforos iniciados con éxito.
+[INFO] 15:09:02:269 SUSE.c/(7370:7370): Levantando servidor.
+[INFO] 15:09:02:269 SUSE.c/(7370:7370): Servidor levantado en el fichero 4.
+[INFO] 15:09:02:269 SUSE.c/(7370:7370): Estoy escuchando.
+[INFO] 15:09:07:957 SUSE.c/(7370:7370): Nueva conexión en 5.
+[INFO] 15:09:07:962 SUSE.c/(7370:7393): Atendiendo al cliente 5.
+[INFO] 15:09:07:962 SUSE.c/(7370:7394): Atendiendo al cliente 5.
+[INFO] 15:09:07:963 SUSE.c/(7370:7395): Atendiendo al cliente 5.
+[INFO] 15:09:07:963 SUSE.c/(7370:7396): Atendiendo al cliente 5.
+[INFO] 15:09:07:963 SUSE.c/(7370:7397): Atendiendo al cliente 5.
+[INFO] 15:09:07:963 SUSE.c/(7370:7392): Atendiendo al cliente 5.
+[INFO] 15:09:07:963 SUSE.c/(7370:7391): Atendiendo al cliente 5.
+[INFO] 15:09:07:963 SUSE.c/(7370:7390): Atendiendo al cliente 5.
+[INFO] 15:09:07:963 SUSE.c/(7370:7389): Atendiendo al cliente 5.
+[INFO] 15:10:10:96 SUSE.c/(7370:7370): El cliente 5 se desconectó.
+[INFO] 15:10:10:97 SUSE.c/(7370:7370): Se liberó la memoria del programa 5.
+[INFO] 15:14:47:380 SUSE.c/(7505:7505): Inicializando semáforos.
+[INFO] 15:14:47:381 SUSE.c/(7505:7505): Semáforos iniciados con éxito.
+[INFO] 15:14:47:381 SUSE.c/(7505:7505): Levantando servidor.
+[INFO] 15:14:47:381 SUSE.c/(7505:7505): Servidor levantado en el fichero 4.
+[INFO] 15:14:47:381 SUSE.c/(7505:7505): Estoy escuchando.
+[INFO] 15:14:53:446 SUSE.c/(7505:7505): Nueva conexión en 5.
+[INFO] 15:14:53:454 SUSE.c/(7505:7529): Atendiendo al cliente 5.
+[INFO] 15:14:53:454 SUSE.c/(7505:7527): Atendiendo al cliente 5.
+[INFO] 15:14:53:455 SUSE.c/(7505:7528): Atendiendo al cliente 5.
+[INFO] 15:14:53:455 SUSE.c/(7505:7530): Atendiendo al cliente 5.
+[INFO] 15:14:53:455 SUSE.c/(7505:7531): Atendiendo al cliente 5.
+[INFO] 15:14:53:455 SUSE.c/(7505:7532): Atendiendo al cliente 5.
+[INFO] 15:14:53:456 SUSE.c/(7505:7533): Atendiendo al cliente 5.
+[INFO] 15:14:53:456 SUSE.c/(7505:7526): Atendiendo al cliente 5.
+[INFO] 15:14:53:459 SUSE.c/(7505:7525): Atendiendo al cliente 5.
+[INFO] 15:36:01:431 SUSE.c/(8163:8163): Inicializando semáforos.
+[INFO] 15:36:01:432 SUSE.c/(8163:8163): Semáforos iniciados con éxito.
+[INFO] 15:36:01:433 SUSE.c/(8163:8163): Levantando servidor.
+[INFO] 15:36:01:433 SUSE.c/(8163:8163): Servidor levantado en el fichero 4.
+[INFO] 15:36:01:433 SUSE.c/(8163:8163): Estoy escuchando.
+[INFO] 15:36:07:525 SUSE.c/(8163:8163): Nueva conexión en 5.
+[INFO] 15:36:07:526 SUSE.c/(8163:8163): Atendiendo al cliente 5.
+[INFO] 15:43:44:787 SUSE.c/(8326:8326): Inicializando semáforos.
+[INFO] 15:43:44:789 SUSE.c/(8326:8326): Semáforos iniciados con éxito.
+[INFO] 15:43:44:789 SUSE.c/(8326:8326): Levantando servidor.
+[INFO] 15:43:44:789 SUSE.c/(8326:8326): Servidor levantado en el fichero 4.
+[INFO] 15:43:44:789 SUSE.c/(8326:8326): Estoy escuchando.
+[INFO] 15:43:52:261 SUSE.c/(8326:8326): Nueva conexión en 5.
+[INFO] 15:43:52:262 SUSE.c/(8326:8326): Atendiendo al cliente 5.
+[INFO] 15:45:16:491 SUSE.c/(8419:8419): Inicializando semáforos.
+[INFO] 15:45:16:492 SUSE.c/(8419:8419): Semáforos iniciados con éxito.
+[INFO] 15:45:16:492 SUSE.c/(8419:8419): Levantando servidor.
+[INFO] 15:45:16:492 SUSE.c/(8419:8419): Servidor levantado en el fichero 4.
+[INFO] 15:45:16:492 SUSE.c/(8419:8419): Estoy escuchando.
+[INFO] 15:45:20:197 SUSE.c/(8419:8419): Nueva conexión en 5.
+[INFO] 15:45:20:199 SUSE.c/(8419:8419): Atendiendo al cliente 5.
+[INFO] 15:47:11:667 SUSE.c/(8529:8529): Inicializando semáforos.
+[INFO] 15:47:11:675 SUSE.c/(8529:8529): Semáforos iniciados con éxito.
+[INFO] 15:47:11:675 SUSE.c/(8529:8529): Levantando servidor.
+[INFO] 15:47:11:675 SUSE.c/(8529:8529): Servidor levantado en el fichero 4.
+[INFO] 15:47:11:675 SUSE.c/(8529:8529): Estoy escuchando.
+[INFO] 15:47:16:758 SUSE.c/(8529:8529): Nueva conexión en 5.
+[INFO] 15:47:16:759 SUSE.c/(8529:8529): Atendiendo al cliente 5.
+[INFO] 15:48:03:689 SUSE.c/(8598:8598): Inicializando semáforos.
+[INFO] 15:48:03:690 SUSE.c/(8598:8598): Semáforos iniciados con éxito.
+[INFO] 15:48:03:690 SUSE.c/(8598:8598): Levantando servidor.
+[INFO] 15:48:03:690 SUSE.c/(8598:8598): Servidor levantado en el fichero 4.
+[INFO] 15:48:03:690 SUSE.c/(8598:8598): Estoy escuchando.
+[INFO] 15:48:07:529 SUSE.c/(8598:8598): Nueva conexión en 5.
+[INFO] 15:48:07:530 SUSE.c/(8598:8598): Atendiendo al cliente 5.
+[INFO] 15:50:09:113 SUSE.c/(8678:8678): Inicializando semáforos.
+[INFO] 15:50:09:121 SUSE.c/(8678:8678): Semáforos iniciados con éxito.
+[INFO] 15:50:09:122 SUSE.c/(8678:8678): Levantando servidor.
+[INFO] 15:50:09:122 SUSE.c/(8678:8678): Servidor levantado en el fichero 4.
+[INFO] 15:50:09:122 SUSE.c/(8678:8678): Estoy escuchando.
+[INFO] 15:50:17:556 SUSE.c/(8678:8678): Nueva conexión en 5.
+[INFO] 15:50:17:556 SUSE.c/(8678:8678): Atendiendo al cliente 5.
+[INFO] 15:51:35:591 SUSE.c/(8750:8750): Inicializando semáforos.
+[INFO] 15:51:35:593 SUSE.c/(8750:8750): Semáforos iniciados con éxito.
+[INFO] 15:51:35:593 SUSE.c/(8750:8750): Levantando servidor.
+[INFO] 15:51:35:593 SUSE.c/(8750:8750): Servidor levantado en el fichero 4.
+[INFO] 15:51:35:593 SUSE.c/(8750:8750): Estoy escuchando.
+[INFO] 15:51:39:404 SUSE.c/(8750:8750): Nueva conexión en 5.
+[INFO] 15:51:39:406 SUSE.c/(8750:8750): Atendiendo al cliente 5.
+[INFO] 15:51:39:408 SUSE.c/(8750:8750): Atendiendo al cliente 5.
+[INFO] 15:51:39:408 SUSE.c/(8750:8750): Atendiendo al cliente 5.
+[INFO] 15:51:39:409 SUSE.c/(8750:8750): Atendiendo al cliente 5.
+[INFO] 15:51:39:409 SUSE.c/(8750:8750): Atendiendo al cliente 5.
+[INFO] 15:51:39:409 SUSE.c/(8750:8750): Atendiendo al cliente 5.
+[INFO] 15:51:39:410 SUSE.c/(8750:8750): Atendiendo al cliente 5.
+[INFO] 15:51:39:410 SUSE.c/(8750:8750): Atendiendo al cliente 5.
+[INFO] 15:51:39:410 SUSE.c/(8750:8750): Atendiendo al cliente 5.
+[INFO] 15:51:39:411 SUSE.c/(8750:8769): Creando un ult para el programa 5.
+[INFO] 15:51:39:411 SUSE.c/(8750:8769): El ult será el -53278.
+[INFO] 15:51:39:411 SUSE.c/(8750:8750): Planificando el siguente ult del programa 5.
+[INFO] 15:51:39:411 SUSE.c/(8750:8750): El estimado del ult -53278 es 0.000000.
+[INFO] 15:51:39:411 SUSE.c/(8750:8750): El que sigue es el ult -53278 con el estimado 0.000000.
+[INFO] 16:00:10:702 SUSE.c/(8913:8913): Inicializando semáforos.
+[INFO] 16:00:10:702 SUSE.c/(8913:8913): Semáforos iniciados con éxito.
+[INFO] 16:00:10:702 SUSE.c/(8913:8913): Levantando servidor.
+[INFO] 16:00:10:702 SUSE.c/(8913:8913): Servidor levantado en el fichero 4.
+[INFO] 16:00:10:702 SUSE.c/(8913:8913): Estoy escuchando.
+[INFO] 16:00:14:589 SUSE.c/(8913:8913): Nueva conexión en 5.
+[INFO] 16:00:14:589 SUSE.c/(8913:8913): Atendiendo al cliente 5.
+[INFO] 16:00:14:590 SUSE.c/(8913:8913): Atendiendo al cliente 5.
+[INFO] 16:00:14:590 SUSE.c/(8913:8913): Atendiendo al cliente 5.
+[INFO] 16:00:14:590 SUSE.c/(8913:8913): Atendiendo al cliente 5.
+[INFO] 16:00:14:590 SUSE.c/(8913:8913): Atendiendo al cliente 5.
+[INFO] 16:00:14:590 SUSE.c/(8913:8913): Atendiendo al cliente 5.
+[INFO] 16:00:14:591 SUSE.c/(8913:8913): Atendiendo al cliente 5.
+[INFO] 16:00:14:591 SUSE.c/(8913:8913): Atendiendo al cliente 5.
+[INFO] 16:00:14:591 SUSE.c/(8913:8913): Atendiendo al cliente 5.
+[INFO] 16:04:24:817 SUSE.c/(9063:9063): Inicializando semáforos.
+[INFO] 16:04:24:818 SUSE.c/(9063:9063): Semáforos iniciados con éxito.
+[INFO] 16:04:24:818 SUSE.c/(9063:9063): Levantando servidor.
+[INFO] 16:04:24:818 SUSE.c/(9063:9063): Servidor levantado en el fichero 4.
+[INFO] 16:04:24:818 SUSE.c/(9063:9063): Estoy escuchando.
+[INFO] 16:04:28:11 SUSE.c/(9063:9063): Nueva conexión en 5.
+[INFO] 16:04:28:13 SUSE.c/(9063:9063): Atendiendo al cliente 5.
+[INFO] 16:04:28:14 SUSE.c/(9063:9063): Atendiendo al cliente 5.
+[INFO] 16:04:28:14 SUSE.c/(9063:9063): Atendiendo al cliente 5.
+[INFO] 16:04:28:15 SUSE.c/(9063:9063): Atendiendo al cliente 5.
+[INFO] 16:04:28:15 SUSE.c/(9063:9063): Atendiendo al cliente 5.
+[INFO] 16:04:28:16 SUSE.c/(9063:9063): Atendiendo al cliente 5.
+[INFO] 16:04:28:16 SUSE.c/(9063:9063): Atendiendo al cliente 5.
+[INFO] 16:04:28:16 SUSE.c/(9063:9063): Atendiendo al cliente 5.
+[INFO] 16:04:28:17 SUSE.c/(9063:9063): Atendiendo al cliente 5.
+[INFO] 16:04:28:17 SUSE.c/(9063:9082): Creando un ult para el programa 5.
+[INFO] 16:04:28:18 SUSE.c/(9063:9082): El ult será el -53278.
+[INFO] 16:04:28:18 SUSE.c/(9063:9063): Planificando el siguente ult del programa 5.
+[INFO] 16:04:28:18 SUSE.c/(9063:9063): El estimado del ult -53278 es 0.000000.
+[INFO] 16:04:28:20 SUSE.c/(9063:9063): El que sigue es el ult -53278 con el estimado 0.000000.
+[INFO] 16:04:28:22 SUSE.c/(9063:9084): Creando un ult para el programa 5.
+[INFO] 16:04:28:22 SUSE.c/(9063:9084): El ult será el -53278.
+[INFO] 16:04:28:23 SUSE.c/(9063:9083): Creando un ult para el programa 5.
+[INFO] 16:04:28:23 SUSE.c/(9063:9083): El ult será el -53278.
+[INFO] 16:04:28:838 SUSE.c/(9063:9063): El cliente 5 se desconectó.
+[INFO] 16:04:28:839 SUSE.c/(9063:9063): Se liberó la memoria del ult -53278 del programa 5.
+[INFO] 16:04:28:839 SUSE.c/(9063:9063): Se liberó la memoria del ult -53278 del programa 5.
+[INFO] 16:04:28:839 SUSE.c/(9063:9063): Se liberó la memoria del ult -53278 del programa 5.
+[INFO] 16:04:28:839 SUSE.c/(9063:9063): Se liberó la memoria del programa 5.
+[INFO] 16:16:54:920 SUSE.c/(9401:9401): Inicializando semáforos.
+[INFO] 16:16:54:920 SUSE.c/(9401:9401): Semáforos iniciados con éxito.
+[INFO] 16:16:54:920 SUSE.c/(9401:9401): Levantando servidor.
+[INFO] 16:16:54:920 SUSE.c/(9401:9401): Servidor levantado en el fichero 4.
+[INFO] 16:16:54:920 SUSE.c/(9401:9401): "Address already in use" re cualquiera je :}.
+[INFO] 16:17:14:834 SUSE.c/(9420:9420): Inicializando semáforos.
+[INFO] 16:17:14:834 SUSE.c/(9420:9420): Semáforos iniciados con éxito.
+[INFO] 16:17:14:834 SUSE.c/(9420:9420): Levantando servidor.
+[INFO] 16:17:14:834 SUSE.c/(9420:9420): Servidor levantado en el fichero 4.
+[INFO] 16:17:14:834 SUSE.c/(9420:9420): Estoy escuchando.
+[INFO] 16:17:18:777 SUSE.c/(9420:9420): Nueva conexión en 5.
+[INFO] 16:21:02:636 SUSE.c/(9518:9518): Inicializando semáforos.
+[INFO] 16:21:02:637 SUSE.c/(9518:9518): Semáforos iniciados con éxito.
+[INFO] 16:21:02:637 SUSE.c/(9518:9518): Levantando servidor.
+[INFO] 16:21:02:638 SUSE.c/(9518:9518): Servidor levantado en el fichero 4.
+[INFO] 16:21:02:638 SUSE.c/(9518:9518): Estoy escuchando.
+[INFO] 16:21:07:628 SUSE.c/(9518:9518): Nueva conexión en 5.
+[INFO] 16:22:44:949 SUSE.c/(9599:9599): Inicializando semáforos.
+[INFO] 16:22:44:951 SUSE.c/(9599:9599): Semáforos iniciados con éxito.
+[INFO] 16:22:44:951 SUSE.c/(9599:9599): Levantando servidor.
+[INFO] 16:22:44:952 SUSE.c/(9599:9599): Servidor levantado en el fichero 4.
+[INFO] 16:22:44:952 SUSE.c/(9599:9599): Estoy escuchando.
+[INFO] 16:22:55:214 SUSE.c/(9599:9599): Nueva conexión en 5.
+[INFO] 16:24:01:898 SUSE.c/(9681:9681): Inicializando semáforos.
+[INFO] 16:24:01:899 SUSE.c/(9681:9681): Semáforos iniciados con éxito.
+[INFO] 16:24:01:899 SUSE.c/(9681:9681): Levantando servidor.
+[INFO] 16:24:01:899 SUSE.c/(9681:9681): Servidor levantado en el fichero 4.
+[INFO] 16:24:01:899 SUSE.c/(9681:9681): Estoy escuchando.
+[INFO] 16:24:06:623 SUSE.c/(9681:9681): Nueva conexión en 5.
+[INFO] 16:24:47:710 SUSE.c/(9761:9761): Inicializando semáforos.
+[INFO] 16:24:47:739 SUSE.c/(9761:9761): Semáforos iniciados con éxito.
+[INFO] 16:24:47:739 SUSE.c/(9761:9761): Levantando servidor.
+[INFO] 16:24:47:739 SUSE.c/(9761:9761): Servidor levantado en el fichero 4.
+[INFO] 16:24:47:739 SUSE.c/(9761:9761): Estoy escuchando.
+[INFO] 16:24:54:235 SUSE.c/(9761:9761): Nueva conexión en 5.
+[INFO] 16:26:12:957 SUSE.c/(9850:9850): Inicializando semáforos.
+[INFO] 16:26:12:957 SUSE.c/(9850:9850): Semáforos iniciados con éxito.
+[INFO] 16:26:12:957 SUSE.c/(9850:9850): Levantando servidor.
+[INFO] 16:26:12:957 SUSE.c/(9850:9850): Servidor levantado en el fichero 4.
+[INFO] 16:26:12:958 SUSE.c/(9850:9850): Estoy escuchando.
+[INFO] 16:26:16:450 SUSE.c/(9850:9850): Nueva conexión en 5.
+[INFO] 16:29:05:756 SUSE.c/(9982:9982): Inicializando semáforos.
+[INFO] 16:29:05:758 SUSE.c/(9982:9982): Semáforos iniciados con éxito.
+[INFO] 16:29:05:759 SUSE.c/(9982:9982): Levantando servidor.
+[INFO] 16:29:05:759 SUSE.c/(9982:9982): Servidor levantado en el fichero 4.
+[INFO] 16:29:05:759 SUSE.c/(9982:9982): Estoy escuchando.
+[INFO] 16:29:09:261 SUSE.c/(9982:9982): Nueva conexión en 5.
+[INFO] 16:29:09:262 SUSE.c/(9982:9982): Atendiendo al cliente 5.
+[INFO] 16:29:09:263 SUSE.c/(9982:9982): Atendiendo al cliente 5.
+[INFO] 16:29:09:263 SUSE.c/(9982:9982): Atendiendo al cliente 5.
+[INFO] 16:29:09:263 SUSE.c/(9982:9982): Atendiendo al cliente 5.
+[INFO] 16:29:09:264 SUSE.c/(9982:9982): Atendiendo al cliente 5.
+[INFO] 16:29:09:264 SUSE.c/(9982:9982): Atendiendo al cliente 5.
+[INFO] 16:29:09:265 SUSE.c/(9982:9982): Atendiendo al cliente 5.
+[INFO] 16:29:09:265 SUSE.c/(9982:9982): Atendiendo al cliente 5.
+[INFO] 16:29:09:265 SUSE.c/(9982:9982): Atendiendo al cliente 5.
+[INFO] 16:31:37:739 SUSE.c/(10066:10066): Inicializando semáforos.
+[INFO] 16:31:37:740 SUSE.c/(10066:10066): Semáforos iniciados con éxito.
+[INFO] 16:31:37:740 SUSE.c/(10066:10066): Levantando servidor.
+[INFO] 16:31:37:740 SUSE.c/(10066:10066): Servidor levantado en el fichero 4.
+[INFO] 16:31:37:740 SUSE.c/(10066:10066): Estoy escuchando.
+[INFO] 16:31:42:62 SUSE.c/(10066:10066): Nueva conexión en 5.
+[INFO] 16:31:42:63 SUSE.c/(10066:10066): Atendiendo al cliente 5.
+[INFO] 16:31:42:64 SUSE.c/(10066:10066): Atendiendo al cliente 5.
+[INFO] 16:31:42:64 SUSE.c/(10066:10066): Atendiendo al cliente 5.
+[INFO] 16:31:42:65 SUSE.c/(10066:10066): Atendiendo al cliente 5.
+[INFO] 16:31:42:65 SUSE.c/(10066:10066): Atendiendo al cliente 5.
+[INFO] 16:31:42:65 SUSE.c/(10066:10066): Atendiendo al cliente 5.
+[INFO] 16:31:42:65 SUSE.c/(10066:10066): Atendiendo al cliente 5.
+[INFO] 16:31:42:65 SUSE.c/(10066:10066): Atendiendo al cliente 5.
+[INFO] 16:31:42:65 SUSE.c/(10066:10066): Atendiendo al cliente 5.

@@ -5,7 +5,11 @@ void suse_init () {
 	char ***maxs = config_get_array_value (config, "Maxs");
 	char ***sids = config_get_array_value (config, "Ids");
 
+	pthread_mutex_lock (&logs);
+
 	log_info (log, "Inicializando semáforos.");
+
+	pthread_mutex_unlock (&logs);
 
 	for (int i = 0; i < sizeof (config_get_array_value (config, "Vals")) - 1; i++) {
 		struct semaforo *semaforo = malloc (sizeof (struct semaforo));
@@ -21,7 +25,11 @@ void suse_init () {
 		semaforos = semaforo;
 	}
 
+	pthread_mutex_lock (&logs);
+
 	log_info (log, "Semáforos iniciados con éxito.");
+
+	pthread_mutex_unlock (&logs);
 }
 
 struct programa *buscarprograma (int pid) {
@@ -37,12 +45,23 @@ struct programa *buscarprograma (int pid) {
 	return NULL;
 }
 
-void crear (struct programa *programa, char *request) {
+void crear (void *argumentos) {
+	struct parametros *parametros = malloc (sizeof (struct parametros));
 	struct ult *ult = malloc (sizeof (struct ult));
 
-	log_info (log, "Creando un ult para el programa %i.", programa -> pid);
+	parametros = (struct paramentros*) argumentos;
 
-	ult -> tid = (request [1] - 48) * 1000 + (request [2] - 48) * 100 + (request [3] - 48) * 10 + request [4] - 48;
+	printf ("Creando.\n");
+
+	pthread_mutex_lock (parametros -> programa -> mutex);
+
+	pthread_mutex_lock (&logs);
+
+	log_info (log, "Creando un ult para el programa %i.", parametros -> programa -> pid);
+
+	pthread_mutex_unlock (&logs);
+
+	ult -> tid = (parametros -> request [1] - 48) * 1000 + (parametros -> request [2] - 48) * 100 + (parametros -> request [3] - 48) * 10 + parametros -> request [4] - 48;
 
 	ult -> estimacion = 0;
 
@@ -52,11 +71,29 @@ void crear (struct programa *programa, char *request) {
 
 	ult -> joineados = NULL;
 
-	ult -> sig = programa -> ults;
+	ult -> sig = parametros -> programa -> ults;
 
-	programa -> ults = ult;
+	parametros -> programa -> ults = ult;
+
+	pthread_mutex_lock (&logs);
 
 	log_info (log, "El ult será el %i.", ult -> tid);
+
+	pthread_mutex_unlock (&logs);
+
+	if (! parametros -> programa -> tienehilos) {
+		pthread_mutex_unlock (parametros -> programa -> hilos);
+
+		parametros -> programa -> tienehilos = 1;
+	}
+
+	pthread_mutex_unlock (parametros -> programa -> mutex);
+
+	free (parametros -> atendedor);
+
+	free (parametros -> request);
+
+	free (parametros);
 }
 
 double estimacion (double estimacion, int duracion) {
@@ -70,7 +107,18 @@ void planificar (struct programa *programa, int cliente) {
 	int mejor;
 	int tid;
 
+	printf ("Planificando.\n");
+
+	if (! programa -> tienehilos)
+		pthread_mutex_lock (programa -> hilos);
+
+	pthread_mutex_lock (programa -> mutex);
+
+	pthread_mutex_lock (&logs);
+
 	log_info (log, "Planificando el siguente ult del programa %i.", programa -> pid);
+
+	pthread_mutex_unlock (&logs);
 
 	while (recorrido) {
 		if (recorrido -> estado == Ejecutando) {
@@ -104,7 +152,11 @@ void planificar (struct programa *programa, int cliente) {
 		if (recorrido -> estado == Listo) {
 			estimado = estimacion (recorrido -> estimacion, recorrido -> duracion);
 
+			pthread_mutex_lock (&logs);
+
 			log_info (log, "El estimado del ult %i es %f.", recorrido -> tid, estimado);
+
+			pthread_mutex_unlock (&logs);
 
 			if (estimado < mejor) {
 				mejor = estimado;
@@ -116,7 +168,11 @@ void planificar (struct programa *programa, int cliente) {
 		recorrido = recorrido -> sig;
 	}
 
+	pthread_mutex_lock (&logs);
+
 	log_info (log, "El que sigue es el ult %i con el estimado %f.", tid, mejor);
+
+	pthread_mutex_unlock (&logs);
 
 	recorrido = programa -> ults;
 
@@ -142,12 +198,21 @@ void planificar (struct programa *programa, int cliente) {
 	send (cliente, tidcasteado, 5, 0);
 
 	free (tidcasteado);
+
+	pthread_mutex_unlock (programa -> mutex);
 }
 
-void joinear (struct programa *programa, char *request) {
-	struct ult *recorrido = programa -> ults;
+void joinear (void *argumentos) {
+	struct parametros *parametros = malloc (sizeof (struct parametros));
+	struct ult *recorrido = parametros -> programa -> ults;
 	struct ult *joineado;
 	int tid;
+
+	parametros = (struct paramentros*) argumentos;
+
+	printf ("Joineando.\n");
+
+	pthread_mutex_lock (parametros -> programa -> mutex);
 
 	while (recorrido) {
 		if (recorrido -> estado == Ejecutando || recorrido -> tid == 0) {
@@ -163,11 +228,15 @@ void joinear (struct programa *programa, char *request) {
 		recorrido = recorrido -> sig;
 	}
 
-	tid = (request [1] - 48) * 1000 + (request [2] - 48) * 100 + (request [3] - 48) * 10 + request [4] - 48;
+	tid = (parametros -> request [1] - 48) * 1000 + (parametros -> request [2] - 48) * 100 + (parametros -> request [3] - 48) * 10 + parametros -> request [4] - 48;
+
+	pthread_mutex_lock (&logs);
 
 	log_info (log, "Joineando el ult %i con el ult %i.", recorrido -> tid, tid);
 
-	recorrido = programa -> ults;
+	pthread_mutex_unlock (&logs);
+
+	recorrido = parametros -> programa -> ults;
 
 	while (recorrido) {
 		if (recorrido -> tid == tid) {
@@ -182,24 +251,43 @@ void joinear (struct programa *programa, char *request) {
 	}
 
 	if (! recorrido) {
-		recorrido = programa -> ults;
+		recorrido = parametros -> programa -> ults;
 
 		while (recorrido -> tid != joineado -> tid)
 			recorrido = recorrido -> sig;
 
 		recorrido -> estado = Listo;
 	}
+
+	pthread_mutex_unlock (parametros -> programa -> mutex);
+
+	free (parametros -> atendedor);
+
+	free (parametros -> request);
+
+	free (parametros);
 }
 
-void cerrar (struct programa *programa, char *request) {
-	struct ult *ult = programa -> ults;
+void cerrar (void *argumentos) {
+	struct parametros *parametros = malloc (sizeof (struct parametros));
+	struct ult *ult = parametros -> programa -> ults;
 	struct ult *recorrido;
 	struct ult *joineado;
 	int tid;
 
-	tid = (request [1] - 48) * 1000 + (request [2] - 48) * 100 + (request [3] - 48) * 10 + request [4] - 48;
+	parametros = (struct paramentros*) argumentos;
+
+	printf ("Cerrando.\n");
+
+	pthread_mutex_lock (parametros -> programa -> mutex);
+
+	tid = (parametros -> request [1] - 48) * 1000 + (parametros -> request [2] - 48) * 100 + (parametros -> request [3] - 48) * 10 + parametros -> request [4] - 48;
+
+	pthread_mutex_lock (&logs);
 
 	log_info (log, "Cerrando el ult %i.", tid);
+
+	pthread_mutex_unlock (&logs);
 
 	while (ult -> tid != tid)
 		ult = ult -> sig;
@@ -209,15 +297,19 @@ void cerrar (struct programa *programa, char *request) {
 	while (joineado) {
 		joineado -> estado = Listo;
 
+		pthread_mutex_lock (&logs);
+
 		log_info (log, "Liberando el ult joineado %i.", joineado -> tid);
+
+		pthread_mutex_unlock (&logs);
 
 		joineado = joineado -> sig;
 	}
 
-	recorrido = programa -> ults;
+	recorrido = parametros -> programa -> ults;
 
 	if (recorrido -> tid == tid)
-		programa -> ults = ult -> sig;
+		parametros -> programa -> ults = ult -> sig;
 
 	else {
 		while (recorrido -> sig -> tid != tid)
@@ -226,30 +318,61 @@ void cerrar (struct programa *programa, char *request) {
 		recorrido -> sig = ult -> sig;
 	}
 
+	pthread_mutex_lock (&logs);
+
 	log_info (log, "Liberando la memoria del ult %i.", tid);
 
+	pthread_mutex_unlock (&logs);
+
+	pthread_mutex_unlock (parametros -> programa -> mutex);
+
 	free (ult);
+
+	free (parametros -> atendedor);
+
+	free (parametros -> request);
+
+	free (parametros);
 }
 
-void atender (int cliente, char *request) {
-	log_info (log, "Atendiendo al cliente %i.", cliente);
+void atender (struct parametros *argumentos) {
+	struct parametros *parametros = malloc (sizeof (struct parametros));
 
-	pthread_mutex_lock (&mutex);
+	pthread_mutex_lock (&vector);
 
-	switch (*request) {
-		case 1: crear (buscarprograma (cliente), request); break;
-		case 2: planificar (buscarprograma (cliente), cliente); break;
-		case 3: joinear (buscarprograma (cliente), request); break;
-		case 4: cerrar (buscarprograma (cliente), request); break;
+	parametros -> request = strdup (argumentos -> request);
+
+	parametros -> cliente = argumentos -> cliente;
+
+	pthread_mutex_unlock (&vector);
+
+	parametros -> programa = buscarprograma (parametros -> cliente);
+
+	parametros -> atendedor = malloc (sizeof (pthread_t));
+
+	pthread_mutex_lock (&logs);
+
+	log_info (log, "Atendiendo al cliente %i.", parametros -> cliente);
+
+	pthread_mutex_unlock (&logs);
+
+	switch (parametros -> request [0]) {
+		case 1: pthread_create (parametros -> atendedor, NULL, &crear, (void *) parametros); break;
+		case 2: planificar (parametros -> programa, parametros -> cliente); break;
+		case 3: pthread_create (parametros -> atendedor, NULL, &joinear, (void *) parametros); break;
+		case 4: pthread_create (parametros -> atendedor, NULL, &cerrar, (void *) parametros); break;
 	}
-
-	pthread_mutex_unlock (&mutex);
 }
 
 void despertar () {
+	struct parametros *parametros = malloc (sizeof (struct parametros));
 	struct sockaddr_in direccioncliente;
 	char *mensaje = malloc (1);
+	struct programa *recorrido;
+	struct programa *programa;
 	int tamaniomensaje;
+	struct ult *ult;
+	struct ult *aux;
 	fd_set temporal;
 	fd_set general;
 	int maximofd;
@@ -264,13 +387,21 @@ void despertar () {
 	direccionservidor.sin_addr.s_addr = INADDR_ANY;
 	direccionservidor.sin_port = htons (1024);
 
+	pthread_mutex_lock (&logs);
+
 	log_info (log, "Levantando servidor.");
+
+	pthread_mutex_unlock (&logs);
 
 	int servidor = socket (AF_INET, SOCK_STREAM, 0);
 
 	int activado = 1;
 
+	pthread_mutex_lock (&logs);
+
 	log_info (log, "Servidor levantado en el fichero %i.", servidor);
+
+	pthread_mutex_unlock (&logs);
 
 	setsockopt (servidor, SOL_SOCKET, SO_REUSEADDR, &activado, sizeof (activado));
 
@@ -282,7 +413,11 @@ void despertar () {
 		exit (EXIT_FAILURE);
 	}
 
+	pthread_mutex_lock (&logs);
+
 	log_info (log, "Estoy escuchando.");
+
+	pthread_mutex_unlock (&logs);
 
 	listen (servidor, SOMAXCONN);
 
@@ -296,7 +431,11 @@ void despertar () {
 		if (select (maximofd + 1, &temporal, NULL, NULL, NULL) == -1) {
 			perror ("Falló el select.\n");
 
+			pthread_mutex_lock (&logs);
+
 			log_info (log, "Falló el select ]/.");
+
+			pthread_mutex_unlock (&logs);
 
 			exit (EXIT_FAILURE);
 		}
@@ -309,7 +448,11 @@ void despertar () {
 					if ((nuevofd = accept (servidor, (void*) &direccioncliente, &tamaniodireccion)) == -1) {
 						perror ("Ocurrió un error.\n");
 
+						pthread_mutex_lock (&logs);
+
 						log_info (log, "Falló la conexión a un nuevo cliente.");
+
+						pthread_mutex_unlock (&logs);
 					}
 
 					else {
@@ -318,13 +461,29 @@ void despertar () {
 						if (nuevofd > maximofd)
 							maximofd = nuevofd;
 
+						pthread_mutex_lock (&logs);
+
 						log_info (log, "Nueva conexión en %i.", nuevofd);
 
-						struct programa *programa = malloc (sizeof (struct programa));
+						pthread_mutex_unlock (&logs);
+
+						programa = malloc (sizeof (struct programa));
 
 						programa -> pid = nuevofd;
 
 						programa -> ults = NULL;
+
+						programa -> tienehilos = 0;
+
+						programa -> mutex = malloc (sizeof (pthread_mutex_t));
+
+						pthread_mutex_init (programa -> mutex, NULL);
+
+						programa -> hilos = malloc (sizeof (pthread_mutex_t));
+
+						pthread_mutex_init (programa -> hilos, NULL);
+
+						pthread_mutex_lock (programa -> hilos);
 
 						programa -> sig = programas;
 
@@ -336,16 +495,24 @@ void despertar () {
 					mensaje = realloc (mensaje, 1);
 
 					if (recv (i, mensaje, 1, 0) <= 0) {
-						struct programa *programa = buscarprograma (i);
-						struct programa *recorrido = programas;
-						struct ult *ult = programa -> ults;
+						programa = buscarprograma (i);
+						recorrido = programas;
+						ult = programa -> ults;
+
+						pthread_mutex_lock (&logs);
 
 						log_info (log, "El cliente %i se desconectó.", i);
 
+						pthread_mutex_unlock (&logs);
+
 						while (ult) {
-							struct ult *aux = ult -> sig;
+							aux = ult -> sig;
+
+							pthread_mutex_lock (&logs);
 
 							log_info (log, "Se liberó la memoria del ult %i del programa %i.", ult -> tid, i);
+
+							pthread_mutex_unlock (&logs);
 
 							free (ult);
 
@@ -362,7 +529,15 @@ void despertar () {
 							recorrido -> sig = programa -> sig;
 						}
 
+						pthread_mutex_lock (&logs);
+
 						log_info (log, "Se liberó la memoria del programa %i.", i);
+
+						pthread_mutex_unlock (&logs);
+
+						free (programa -> mutex);
+
+						free (programa -> hilos);
 
 						free (programa);
 
@@ -378,15 +553,19 @@ void despertar () {
 
 						mensaje [tamaniomensaje] = '\0';
 
-						pthread_mutex_lock (&mutex);
-
 						recv (i, mensaje, tamaniomensaje, 0);
-
-						pthread_mutex_unlock (&mutex);
 
 						mensaje [tamaniomensaje + 1] = '\0';
 
-						atender (i, mensaje);
+						pthread_mutex_lock (&vector);
+
+						parametros -> request = mensaje;
+
+						parametros -> cliente = i;
+
+						pthread_mutex_unlock (&vector);
+
+						atender (parametros);
 					}
 				}
 			}
@@ -394,6 +573,8 @@ void despertar () {
 	}
 
 	free (mensaje);
+
+	free (parametros);
 
 	close (servidor);
 
@@ -404,6 +585,10 @@ void main () {
 	config = config_create ("Cosas/Config.config");
 
 	log = log_create ("Log.log", "SUSE.c", 1, LOG_LEVEL_INFO);
+
+	pthread_mutex_init (&logs, NULL);
+
+	pthread_mutex_init (&vector, NULL);
 
 	suse_init ();
 
