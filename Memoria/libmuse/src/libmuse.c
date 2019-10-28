@@ -150,6 +150,41 @@ _______________________
 * @DESC: Devuelve el valor del bit de la posicion indicada
 	*/
 	bool 		 bitarray_test_bit(t_bitarray*, off_t bit_index);
+__________________________________
+/**
+	* @NAME: bitarray_set_bit
+	* @DESC: Setea el valor del bit de la posicion indicada
+	*/
+	void		 bitarray_set_bit(t_bitarray*, off_t bit_index);
 
+___________________________________
 
+	/**
+	* @NAME: bitarray_clean_bit
+	* @DESC: Limpia el valor del bit de la posicion indicada
+	*/
+	void		 bitarray_clean_bit(t_bitarray*, off_t bit_index);
 
+___________________________________
+
+	/**
+	* @NAME: bitarray_get_max_bit
+	* @DESC: Devuelve la cantidad de bits en el bitarray
+	*/
+	size_t		 bitarray_get_max_bit(t_bitarray*);
+
+____________________________________
+	/**
+	* @NAME: bitarray_destroy
+	* @DESC: Destruye el bit array
+	*/
+	void 		 bitarray_destroy(t_bitarray*);
+____________________________________
+
+	/**
+	* @NAME: error_show
+	* @DESC: imprime un mensaje con el siguiente formato
+	*
+	* 	[[ERROR]] MESSAGE
+	*/
+	void error_show(char *message, ...);
