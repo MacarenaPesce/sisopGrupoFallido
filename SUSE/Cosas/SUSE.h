@@ -2,6 +2,7 @@
 #include <commons/log.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <pthread.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
@@ -10,6 +11,8 @@
 
 #ifndef SUSE_H_
 #define SUSE_H_
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 t_config *config;
 

@@ -26,7 +26,7 @@ endif
 all: SUSE
 
 dependents:
-	-cd /home/utnso/workspace/Hilolay/Debug && $(MAKE) clean all
+	-cd /home/utnso/workspace/Hilolay/Debug && $(MAKE) all
 
 # Tool invocations
 SUSE: $(OBJS) $(USER_OBJS) /home/utnso/workspace/Hilolay/Debug/libHilolay.so

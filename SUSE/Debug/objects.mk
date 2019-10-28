@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -lHilolay -lcommons
+LIBS := -lHilolay -lpthread -lcommons
 
