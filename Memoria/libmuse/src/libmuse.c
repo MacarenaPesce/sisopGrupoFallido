@@ -121,4 +121,35 @@ int muse_unmap(uint32_t dir){
 }
 
 
+/**
+	* @DESC: Crea y devuelve un puntero a una estructura t_bitarray con formato LSB_FIRST
+	*		bitarray - el bloque de memoria que contiene los bits a leer / escribir
+	*		size - la cantidad de bits del bitarray, expresada en bytes (1 byte = 8 bits)
+	*		ejemplo: bitarray de 8 posiciones (bits), 
+	*			void* puntero_a_bits = //un byte de memoria, como por ejemplo malloc(1)
+	*			bitarray_create(puntero_a_bits, 1)
+	*/
+	t_bitarray 	*bitarray_create(char *bitarray, size_t size);
+
+______________________
+
+* @DESC: Crea y devuelve un puntero a una estructura t_bitarray
+	* @PARAMS:
+	* 		bitarray - el bloque de memoria que contiene los bits a leer/escribir
+	*		size - la cantidad de bits del bitarray, expresada en bytes (1 byte = 8 bits)
+	*		mode - LSB_FIRST ó MSB_FIRST
+	*
+	*		ejemplo: bitarray de 8 posiciones (bits) con LSB_FIRST, 
+	*			void* puntero_a_bits = //un byte de memoria, como por ejemplo malloc(1)
+	*			bitarray_create_with_mode(puntero_a_bits, 1, LSB_FIRST)
+	*/
+	t_bitarray	*bitarray_create_with_mode(char *bitarray, size_t size, bit_numbering_t mode);
+
+_______________________
+
+* @DESC: Devuelve el valor del bit de la posicion indicada
+	*/
+	bool 		 bitarray_test_bit(t_bitarray*, off_t bit_index);
+
+
 
