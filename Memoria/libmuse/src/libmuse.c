@@ -35,7 +35,9 @@ uint32_t muse_alloc(uint32_t tam){
 }    
 
 void muse_free(uint32_t dir){
-    /**
+    //free((void*) dir);
+    
+     /**
      * Libera una porción de memoria reservada.
      * @param dir La dirección de la memoria a reservar.
      */
@@ -43,7 +45,9 @@ void muse_free(uint32_t dir){
 }
 
 int muse_get(void* dst, uint32_t src, size_t n){
-    /**
+    //memcpy(dst, (void*) src, n);
+    
+     /**
      * Copia una cantidad `n` de bytes desde una posición de memoria de MUSE a una `dst` local.
      * @param dst Posición de memoria local con tamaño suficiente para almacenar `n` bytes.
      * @param src Posición de memoria de MUSE de donde leer los `n` bytes.
@@ -57,7 +61,9 @@ int muse_get(void* dst, uint32_t src, size_t n){
 }
 
 int muse_cpy(uint32_t dst, void* src, int n){
-    /**
+    //memcpy((void*) dst, src, n);
+    
+     /**
      * Copia una cantidad `n` de bytes desde una posición de memoria local a una `dst` en MUSE.
      * @param dst Posición de memoria de MUSE con tamaño suficiente para almacenar `n` bytes.
      * @param src Posición de memoria local de donde leer los `n` bytes.
@@ -82,8 +88,9 @@ uint32_t muse_map(char *path, size_t length, int flags){
      */
 	//ver como se mapea una posicion de memoria
 	//Ver como se relaciona un Path con el FS
-	//
-
+	//validar la cantidad de bytes (length) y tener en cuenta la nota
+	// ver los flags y las diferencias
+	// ¿de donde salen los flags?
 }
 
 int muse_sync(uint32_t addr, size_t len){
@@ -94,51 +101,24 @@ int muse_sync(uint32_t addr, size_t len){
      * @return Si pasa un error, retorna -1. Si la operación se realizó correctamente, retorna 0.
      * @note Si `len` es menor que el tamaño de la página en la que se encuentre, se deberá escribir la página completa.
      */
+	//RELACION CON FS , Hablar con Mari esa relacion
+	//validar la cantidad de bytes, tener en cuenta la nota
+	//doble retorno, un if
 }
 
 int muse_unmap(uint32_t dir){
     /**
      * Borra el mappeo a un archivo hecho por muse_map.
      * @param dir Dirección a memoria mappeada.
-     * @param
      * @note Esto implicará que todas las futuras utilizaciones de direcciones basadas en `dir` serán accesos inválidos.
      * @note Solo se deberá cerrar el archivo mappeado una vez que todos los hilos hayan liberado la misma cantidad de muse_unmap que muse_map.
      * @return Si pasa un error, retorna -1. Si la operación se realizó correctamente, retorna 0.
      */
 	//tengo 2 opciones para retornar, hay un if
-	//ver
+	//ver el tema de mappeo, entenderlo
+	//entender las notas ¿?
+	
 }
 
------------------------------
 
 
-uint32_t muse_alloc(uint32_t tam){
-
-}
-
-void muse_free(uint32_t dir) {
-    free((void*) dir);
-}
-
-int muse_get(void* dst, uint32_t src, size_t n){
-    memcpy(dst, (void*) src, n);
-    return 0;
-}
-
-int muse_cpy(uint32_t dst, void* src, int n){
-    memcpy((void*) dst, src, n);
-    return 0;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-uint32_t muse_map(char *path, size_t length, int flags){
-    return 0;
-}
-
-int muse_sync(uint32_t addr, size_t len){
-    return 0;
-}
-
-int muse_unmap(uint32_t dir){
-    return 0;
-}
