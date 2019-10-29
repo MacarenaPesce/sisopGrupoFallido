@@ -41,16 +41,17 @@ char* pedir_oper_sacServer(const char* pedido_oper, int codigo_oper) {
 	printf("la respuesta del servidor pesa %i\n", tamaniomensaje);
 	recv(cliente, mensaje, tamaniomensaje, 0);
 	mensaje[tamaniomensaje] = '\0';
-	printf("%s\n", mensaje);
+	printf("DESDE PEDIR OPERACIÓN: %s\n", mensaje);
 
 	close(cliente);
 	close(servidor);
+
 	return mensaje;
 }
 
 int sac_leer(const char* path, char* buffer) {
 	strcpy(buffer, pedir_oper_sacServer(path, LEER_ARCHIVO));
-
+	printf("DESDE SAC-LEER: buffer es: %s\n", buffer);
 	return strlen(buffer);
 }
 
