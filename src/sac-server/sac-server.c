@@ -1,5 +1,5 @@
 
-#include <escuchar-pedidos.h>
+#include "escuchar-pedidos.h"
 
 
 
@@ -31,7 +31,7 @@ int main(void) {
 		exit(1);
 	}
 
-	if (listen(sockfd, BACKLOG) == -1) {
+	if (listen(sockfd, SOMAXCONN) == -1) {
 		perror("listen");
 		exit(1);
 	}
@@ -61,7 +61,7 @@ int main(void) {
 		pthread_attr_setdetachstate(&atributos, PTHREAD_CREATE_DETACHED); //PTHREAD_CREATE_DETACHED
 		// Acá creo el hilo
 		int estado = pthread_create(&thread_escuchar, &atributos,
-				atender_pedidos, &nuevo_cliente);
+		atender_pedidos, &nuevo_cliente);
 		printf("estado %i\n", estado);
 
 		printf("\nwhile número %i\n", cont);
